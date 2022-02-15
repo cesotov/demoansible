@@ -55,6 +55,7 @@ controller_templates:
         - question_name: Server Name or Pattern
           type: text
           variable: HOSTS
+          required: false
         - question_name: web content
           type: text
           variable: iis_message
@@ -76,9 +77,11 @@ controller_templates:
         - question_name: Server Name or Pattern
           type: text
           variable: HOSTS
+          required: false
         - question_name: Update categories
           type: multiplechoice
           variable: categories
+          required: false
           default: SecurityUpdates
           choices:
             - Application
@@ -95,6 +98,7 @@ controller_templates:
         - question_name: Reboot after install?
           type: multiplechoice
           variable: reboot_server
+          required: false
           default: 'Yes'
           choices:
             - 'Yes'
