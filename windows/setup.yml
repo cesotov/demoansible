@@ -55,7 +55,6 @@ controller_templates:
         - question_name: Server Name or Pattern
           type: text
           variable: HOSTS
-          required: true
         - question_name: web content
           type: text
           variable: iis_message
