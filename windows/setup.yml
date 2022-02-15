@@ -98,5 +98,5 @@ controller_templates:
           default: Yes
           required: true
           choices:
-            - Yes
-            - No
+            - 'Yes'
+            - 'No'
