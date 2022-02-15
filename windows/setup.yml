@@ -1,6 +1,4 @@
 ---
-user_message: |
-  Be sure to update the 'activation_key' and 'org_id' extra variables for 'LINUX / Register'
 controller_components:
   - projects
   - credential_types
