@@ -2,7 +2,7 @@
 - name: Install IIS
   hosts: "{{ HOSTS | default('windows') }}"
   vars:
-  iis_message: undef
+    iis_message: undef
 
   tasks:
     - name: Install IIS
