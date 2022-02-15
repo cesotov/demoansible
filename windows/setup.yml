@@ -1,8 +1,6 @@
 ---
 controller_components:
   - projects
-  - credential_types
-  - credentials
   - job_templates
 
 controller_projects:
@@ -10,14 +8,6 @@ controller_projects:
     organization: Default
     scm_type: git
     scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
-
-controller_credentials:
-  - name: Insights Inventory
-    credential_type: Insights Collection
-    organization: Default
-    inputs:
-      insights_user: REPLACEME
-      insights_password: REPLACEME
 
 controller_templates:
   - name: "WINDOWS / Install IIS"
