@@ -85,24 +85,6 @@ controller_templates:
             - 'Yes'
             - 'No'
 
-  - name: "WINDOWS / Chocolatey install package collection"
-    job_type: run
-    inventory: "Workshop Inventory"
-    project: "Ansible official demo project"
-    playbook: "windows/windows_choco_collection.yml"
-    execution_environment: Default execution environment
-    credentials:
-    - "Workshop Credential"
-    survey_enabled: true
-    survey:
-      name: ''
-      description: ''
-      spec:
-        - question_name: Server Name or Pattern
-          type: text
-          variable: HOSTS
-          required: false
-
   - name: "WINDOWS / Chocolatey install multiple"
     job_type: run
     inventory: "Workshop Inventory"
