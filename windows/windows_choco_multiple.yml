@@ -18,10 +18,12 @@
   - name: Check python version
     win_command: python --version
     register: check_python_version
+    changed_when: false
 
   - name: Check nodejs version
     win_command: node --version
     register: check_node_version
+    changed_when: false
 
   - debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}

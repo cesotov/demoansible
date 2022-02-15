@@ -4,7 +4,6 @@
   gather_facts: false
 
   tasks:
-  - name: Install choco package
+  - name: Install choco package with specific version
     win_chocolatey:
       name: "{{ package_name }}"
-      version: "{{ package_version }}"

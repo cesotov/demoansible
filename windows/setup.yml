@@ -124,8 +124,3 @@ controller_templates:
           type: text
           variable: package_name
           required: true
-        - question_name: Package version
-          type: text
-          variable: package_version
-          default: latest
-          required: true
