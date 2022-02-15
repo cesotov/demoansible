@@ -7,4 +7,4 @@ collections:
   - community.general
   - containers.podman
   #windows
-  - win_chocolatey
+  - chocolatey.chocolatey
