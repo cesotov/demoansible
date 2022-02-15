@@ -59,3 +59,44 @@ controller_templates:
           type: text
           variable: iis_message
           required: true
+
+  - name: "WINDOWS / Windows updates"
+    job_type: run
+    inventory: "Workshop Inventory"
+    project: "Ansible official demo project"
+    playbook: "windows/windows_updates.yml"
+    execution_environment: Default execution environment
+    credentials:
+    - "Workshop Credential"
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: HOSTS
+        - question_name: Update categories
+          type: multiplechoice
+          variable: categories
+          default: SecurityUpdates
+          choices:
+            - Application
+            - Connectors
+            - CriticalUpdates
+            - DefinitionUpdates
+            - DeveloperKits
+            - FeaturePacks Guidance
+            - SecurityUpdates
+            - ServicePacks
+            - Tools
+            - UpdateRollups
+            - Updates
+        - question_name: Reboot after install?
+          type: multiplechoice
+          variable: reboot_server
+          default: Yes
+          required: true
+          choices:
+            - Yes
+            - No
