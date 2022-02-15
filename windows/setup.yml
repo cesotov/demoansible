@@ -95,7 +95,7 @@ controller_templates:
         - question_name: Reboot after install?
           type: multiplechoice
           variable: reboot_server
-          default: Yes
+          default: 'Yes'
           required: true
           choices:
             - 'Yes'
