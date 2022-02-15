@@ -96,7 +96,6 @@ controller_templates:
           type: multiplechoice
           variable: reboot_server
           default: 'Yes'
-          required: true
           choices:
             - 'Yes'
             - 'No'
