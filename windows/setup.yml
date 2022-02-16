@@ -159,7 +159,7 @@ controller_templates:
     playbook: "windows/backup.yml"
     execution_environment: "windows workshop execution environment"
     credentials:
-    - "Windows Credential"
+    - "Workshop Credential"
 
   - name: "Open SNOW Change Request"
     job_type: run
@@ -179,7 +179,7 @@ controller_templates:
     playbook: "windows/backup.yml"
     execution_environment: "windows workshop execution environment"
     credentials:
-    - "Windows Credential"
+    - "Workshop Credential"
 
   - name: "Alert Ops!"
     job_type: run
@@ -189,7 +189,7 @@ controller_templates:
     playbook: "windows/backup.yml"
     execution_environment: "windows workshop execution environment"
     credentials:
-    - "Windows Credential"
+    - "Workshop Credential"
 
 controller_workflows:
   - name: "Windows Demo Workflow"
