@@ -1,4 +1,7 @@
 ---
+user_message: |
+  You will need to update SNOW credentials with your SNOW instance details if you plan to demo this.
+
 controller_components:
   - projects
   - credential_types
