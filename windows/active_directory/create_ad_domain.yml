@@ -16,9 +16,9 @@
 
   - name: Create some groups
     community.windows.win_domain_group:
-      name: "{{ item }}"
+      name: "{{ item.name }}"
       scope: global
       loop:
-        - "GroupA"
-        - "GroupB"
-        - "GroupC"
+        - { name: "GroupA" }
+        - { name: "GroupB" }
+        - { name: "GroupC" }
