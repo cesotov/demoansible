@@ -18,7 +18,8 @@
       password: "{{ temp_password }}"
       state: present
       groups:
-        - Domain Admins
+        - "GroupA"
+        - "GroupB"
       street: 123 4th St.
       city: Sometown
       state_province: IN
@@ -26,6 +27,11 @@
       country: US
       attributes:
         telephoneNumber: 555-123456
+    register: new_user
+
+  - name: Display User
+    debug:
+      var: new_user
 
   - name: Show temp password
     debug:
