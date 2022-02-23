@@ -18,7 +18,7 @@
     community.windows.win_domain_group:
       name: "{{ item.name }}"
       scope: global
-      loop:
-        - { name: "GroupA" }
-        - { name: "GroupB" }
-        - { name: "GroupC" }
+    loop:
+      - { name: "GroupA" }
+      - { name: "GroupB" }
+      - { name: "GroupC" }
