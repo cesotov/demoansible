@@ -1,0 +1,13 @@
+---
+- name: Create Active Directory domain
+  hosts: "{{ HOSTS | default('windows') }}"
+
+  tasks:
+  - name: Create new domain in a new forest on the target host
+    ansible.windows.win_domain:
+      dns_domain_name: ansible.local
+      safe_mode_password: password123!
+
+  - name: Reboot the target host
+    ansible.windows.win_reboot:
+      reboot_timeout: 3600
