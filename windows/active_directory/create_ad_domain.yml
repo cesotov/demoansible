@@ -29,6 +29,6 @@
       groups: "{{ item.groups }}"
       password: lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, min_numeric=1)
     loop:
-      - { name: "userA", groups: "GroupA" }
-      - { name: "userB", groups: "GroupB" }
-      - { name: "userC", groups: "GroupC" }
+      - { name: "UserA", groups: "GroupA" }
+      - { name: "UserB", groups: "GroupB" }
+      - { name: "UserC", groups: "GroupC" }
