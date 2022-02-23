@@ -7,7 +7,18 @@
     ansible.windows.win_domain:
       dns_domain_name: ansible.local
       safe_mode_password: password123!
+    register: new_forest
 
   - name: Reboot the target host
     ansible.windows.win_reboot:
       reboot_timeout: 3600
+    when: new_forest.reboot_required
+
+  - name: Create some groups
+    community.windows.win_domain_group:
+      name: "{{ item }}"
+      scope: global
+      loop:
+        - "GroupA"
+        - "GroupB"
+        - "GroupC"
