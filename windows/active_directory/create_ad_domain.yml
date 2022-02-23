@@ -6,7 +6,7 @@
   - name: Create new domain in a new forest on the target host
     ansible.windows.win_domain:
       dns_domain_name: ansible.local
-      safe_mode_password: password123!
+      safe_mode_password: "{{ lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, min_numeric=1) }}"
     register: new_forest
 
   - name: Reboot the target host
@@ -27,7 +27,7 @@
     community.windows.win_domain_user:
       name: "{{ item.name }}"
       groups: "{{ item.groups }}"
-      password: lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, min_numeric=1)
+      password: "{{ lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, min_numeric=1) }}"
     loop:
       - { name: "UserA", groups: "GroupA" }
       - { name: "UserB", groups: "GroupB" }
