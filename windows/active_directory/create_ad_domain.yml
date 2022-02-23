@@ -22,3 +22,12 @@
       - { name: "GroupA" }
       - { name: "GroupB" }
       - { name: "GroupC" }
+
+  - name: Create some users
+    community.windows.win_domain_user:
+      name: "{{ item.name }}"
+      groups: "{{ item.groups }}"
+    loop:
+      - { name: "userA", groups: "GroupA" }
+      - { name: "userB", groups: "GroupB" }
+      - { name: "userC", groups: "GroupC" }
