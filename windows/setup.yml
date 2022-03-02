@@ -1,9 +1,12 @@
 ---
+user_message: |
+  You will need to update SNOW credentials with your SNOW instance details if you plan to demo this.
+
 controller_components:
   - projects
-  - job_templates
-  - credentials
   - credential_types
+  - credentials
+  - job_templates
   - workflow_job_templates
 
 controller_projects:
