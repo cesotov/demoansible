@@ -6,8 +6,8 @@
   tasks:
   - name: Setup the AuditPolicyDSC module
     community.windows.win_psmodule:
-      name: AuditPolicyDSC
-      module_version: 1.4.0.0
+      name: SecurityPolicyDSC
+      module_version: 2.10.0.0
       state: present
   
   - name: Set password history
