@@ -5,7 +5,7 @@
 
   tasks:
   - name: Setup the AuditPolicyDSC module
-    ansible.windows.win_psmodule:
+    community.windows.win_psmodule:
       name: AuditPolicyDSC
       module_version: 1.4.0.0
       state: present
