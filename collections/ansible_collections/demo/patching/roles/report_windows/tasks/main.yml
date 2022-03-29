@@ -23,6 +23,6 @@
     - "server.png"
   check_mode: no
 
-- name: display link to inventory report
-  ansible.builtin.debug:
-    msg: "Please go to http://{{ host_vars[report_server]['ansible_host'] }}/reports/windows.html"
+#- name: display link to inventory report
+#  ansible.builtin.debug:
+#    msg: "Please go to http://{{ host_vars[report_server]['ansible_host'] }}/reports/windows.html"

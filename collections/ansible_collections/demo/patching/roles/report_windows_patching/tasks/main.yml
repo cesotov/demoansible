@@ -18,6 +18,6 @@
     directory_mode: true
   check_mode: no
 
-- name: Display link to Patch report
-  ansible.builtin.debug:
-    msg: "Please go to http://{{ ansible_host }}/windowspatch.html"
+#- name: Display link to Patch report
+#  ansible.builtin.debug:
+#    msg: "Please go to http://{{ ansible_host }}/windowspatch.html"
