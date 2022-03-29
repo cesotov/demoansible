@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-{% for windows_host in groups['tag_Windows']|sort %}
+{% for windows_host in ansible_play_hosts |sort %}
         <tr>
             <td>{{hostvars[windows_host]['inventory_hostname']}}</td>
             <td>{{hostvars[windows_host]['ansible_distribution']|default("none")}}</td>
