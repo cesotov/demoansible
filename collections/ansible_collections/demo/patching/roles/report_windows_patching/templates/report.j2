@@ -34,9 +34,9 @@
             <td>
               <ul>
 
-{% if hostvars[windows_host].patchresult.updates is defined and hostvars[windows_host].patchresult.found_update_count|int > 0  %}
-{% for update in hostvars[windows_host].patchresult.updates %}
-{% set updatenum = hostvars[windows_host].patchresult.updates[update] %}
+{% if hostvars[windows_host].patchingresult.updates is defined and hostvars[windows_host].patchingresult.found_update_count|int > 0  %}
+{% for update in hostvars[windows_host].patchingresult.updates %}
+{% set updatenum = hostvars[windows_host].patchingresult.updates[update] %}
             <li>{{updatenum.title}}</li>
 {% endfor %}
 {% else %}
