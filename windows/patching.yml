@@ -1,7 +1,6 @@
 ---
 - name: Windows updates
   hosts: "{{ HOSTS | default('os_windows') }}"
-  become: yes
   vars:
     report_server: node1
   
