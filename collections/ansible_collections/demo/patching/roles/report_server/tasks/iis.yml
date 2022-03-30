@@ -16,3 +16,8 @@
     path: C:\Inetpub\wwwroot\reports
     state: directory
   check_mode: no
+
+- name: Enable Directory Browsing
+  ansible.windows.win_file:
+    script: |
+      Set-WebConfigurationProperty -filter /system.webServer/directoryBrowse -name enabled -value true -PSPath 'IIS:\Sites\Default Web Site\reports'

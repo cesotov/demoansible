@@ -94,7 +94,7 @@ controller_templates:
           variable: HOSTS
           required: false
         - question_name: Update categories
-          type: multiplechoice
+          type: multiselect
           variable: win_update_categories
           required: false
           default: SecurityUpdates
