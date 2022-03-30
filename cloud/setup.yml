@@ -98,6 +98,7 @@ controller_templates:
           variable: vm_blueprint
           required: true
           choices: #"{{ lookup('fileglob', 'blueprints/*.yml') | regex_replace(',','\n') | regex_findall('.*/(.*)(?=.yml)') | list }}"
-            - windows
+            - windows_core
+            - windows_full
             - rhel8
             - rhel7
