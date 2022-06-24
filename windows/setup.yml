@@ -3,8 +3,21 @@ user_message: |
   ''
 
 controller_components:
+  - organizations
+  - users
   - projects
   - job_templates
+  - roles
+
+controller_organizations:
+- name: "Helpdesk Org"
+  description: This is the Helpdesk
+
+controller_user_accounts:
+  - user: level1
+    is_superuser: false
+    password: Ansible!23
+    organization: "Helpdesk Org"
 
 controller_projects:
   - name: Fact Scan
@@ -79,6 +92,33 @@ controller_templates:
           choices:
             - 'Yes'
             - 'No'
+
+  - name: "WINDOWS / Patching Report"
+    use_fact_cache: true
+    job_type: check
+    ask_job_type_on_launch: no
+    inventory: "Workshop Inventory"
+    project: "Ansible official demo project"
+    playbook: "windows/patching.yml"
+    execution_environment: Default execution environment
+    credentials:
+    - "Workshop Credential"
+    survey_enabled: false
+    extra_vars:
+      HOSTS: student1-win1
+      win_update_categories:
+        - Application
+        - Connectors
+        - CriticalUpdates
+        - DefinitionUpdates
+        - DeveloperKits
+        - FeaturePacks Guidance
+        - SecurityUpdates
+        - ServicePacks
+        - Tools
+        - UpdateRollups
+        - Updates
+      allow_reboot: 'No'
 
   - name: "WINDOWS / Chocolatey install multiple"
     job_type: run
@@ -245,3 +285,12 @@ controller_templates:
           variable: telephone_number
           default: 555-123456
           required: false
+
+
+controller_roles:
+  - projects:
+      - "Ansible official demo project"
+    job_templates:
+        - "WINDOWS / Patching Report"
+    user: level1
+    role: execute
