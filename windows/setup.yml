@@ -291,7 +291,9 @@ controller_templates:
 controller_roles:
   - projects:
       - "Ansible official demo project"
-    job_templates:
-        - "WINDOWS / Patching Report"
+    user: level1
+    role: use
+  - job_templates:
+      - "WINDOWS / Patching Report"
     user: level1
     role: execute
