@@ -106,6 +106,7 @@ controller_templates:
     survey_enabled: false
     extra_vars:
       HOSTS: student1-win1
+      report_server: student1-win1
       win_update_categories:
         - Application
         - Connectors
