@@ -128,6 +128,7 @@ controller_templates:
           choices: #"{{ lookup('fileglob', 'blueprints/*.yml') | regex_replace(',','\n') | regex_findall('.*/(.*)(?=.yml)') | list }}"
             - windows_core
             - windows_full
+            - rhel9
             - rhel8
             - rhel7
   - name: Cloud / Destroy VM
