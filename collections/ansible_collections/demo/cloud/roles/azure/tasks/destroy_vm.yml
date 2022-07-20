@@ -1,5 +1,8 @@
 ---
-- name: Destroy VM
+- name: AZURE | DESTROY VM | install pre-reqs
+  include_tasks: prereqs.yml
+
+- name: AZURE | DESTROY VM | remove machine
   azure.azcollection.azure_rm_virtualmachine:
     resource_group: "{{ az_rg_name }}-{{ az_rg_prefix }}-rg"
     name: "{{ inventory_hostname }}"

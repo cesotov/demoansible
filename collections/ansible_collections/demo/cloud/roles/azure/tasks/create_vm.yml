@@ -1,4 +1,7 @@
 ---
+- name: AZURE | CREATE VM | install pre-reqs
+  include_tasks: prereqs.yml
+
 - name: AZURE | CREATE VM | vnet interface
   azure.azcollection.azure_rm_networkinterface:
     resource_group: "{{ az_rg_name }}-{{ az_rg_prefix }}-rg"
