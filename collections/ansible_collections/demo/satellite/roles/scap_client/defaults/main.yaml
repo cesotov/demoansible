@@ -1,6 +1,6 @@
-foreman_server_url: "{{ lookup('env', 'FOREMAN_SERVER') }}"
-foreman_username: "{{ lookup('env', 'FOREMAN_USER') }}"
-foreman_password: "{{ lookup('env', 'FOREMAN_PASSWORD') }}"
+foreman_server_url: "{{ lookup('env', 'SATELLITE_SERVER') }}"
+foreman_username: "{{ lookup('env', 'SATELLITE_USERNAME') }}"
+foreman_password: "{{ lookup('env', 'SATELLITE_PASSWORD') }}"
 foreman_validate_certs: "{{ lookup('env', 'FOREMAN_VALIDATE_CERTS') | default(true) }}"
 capsule_server: "{{ foreman_server_url }}"
 capsule_port: '9090'

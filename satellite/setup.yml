@@ -84,7 +84,7 @@ controller_templates:
     - Workshop Credential
   extra_vars:
     policy_scan: all
-    survey_enabled: true
+  survey_enabled: true
   survey:
     name: ''
     description: ''
