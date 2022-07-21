@@ -46,6 +46,8 @@ controller_inventory_sources:
         key: foreman_content_facet_attributes.content_view_name
       - prefix: os
         key: foreman_operatingsystem_name
+      - prefix: scap
+        key: foreman_compliance_status_label
 
 controller_templates:
 - name: LINUX / Register with Satellite
@@ -140,9 +142,24 @@ controller_templates:
         choices: "{{ satellite_lifecycle_environments | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
         required: true
 
+- name: SETUP / Satellite
+  project: Ansible official demo project
+  playbook: satellite/satellite_promote.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Satellite Credential
+
+
+
 #######################
 ### Satellite Vars ###
 ######################
+satellite_components:
+  - repositories
+  - lifecycle_environments
+  - content_views
+  - activation_keys
+
 satellite_organization: "Default Organization"
 satellite_validate_certs: false
 
