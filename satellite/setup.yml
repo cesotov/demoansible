@@ -154,7 +154,7 @@ controller_templates:
 #######################
 ### Satellite Vars ###
 ######################
-satellite_components:
+satellite_components: undef
   #- lifecycle_environments
   #- content_views
   #- activation_keys
