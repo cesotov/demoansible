@@ -155,9 +155,9 @@ controller_templates:
 ### Satellite Vars ###
 ######################
 satellite_components:
-  - lifecycle_environments
-  - content_views
-  - activation_keys
+  #- lifecycle_environments
+  #- content_views
+  #- activation_keys
 
 satellite_organization: "Default Organization"
 satellite_validate_certs: false
