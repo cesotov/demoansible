@@ -144,7 +144,7 @@ controller_templates:
 
 - name: SETUP / Satellite
   project: Ansible official demo project
-  playbook: satellite/satellite_promote.yml
+  playbook: satellite/setup_satellite.yml
   inventory: Workshop Inventory
   credentials:
     - Satellite Credential
