@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
-  connection: local
   gather_facts: no
   vars_files: setup.yml
 
@@ -17,4 +16,3 @@
       name: RHEL7_STIG
       organizations: "{{ satellite_organization }}"
       scap_file: files/ssg-rhel7-ds-tailoring.xml
-      
