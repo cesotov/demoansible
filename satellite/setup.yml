@@ -82,7 +82,7 @@ controller_templates:
       - question_name: Select Content View
         variable: content_view
         type: multiplechoice
-        choices: "{{ hostvars['satellite.example.com']['satellite_content_views'] | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        choices: "{{ satellite_content_views | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
         required: true
 
 - name: SATELLITE / Promote Content View Version
@@ -99,15 +99,88 @@ controller_templates:
       - question_name: Select Content View
         variable: content_view
         type: multiplechoice
-        choices: "{{ hostvars['satellite.example.com']['satellite_content_views'] | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        choices: "{{ 'satellite_content_views | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
         required: true
       - question_name: Current Lifecycle Environment
         variable: current_lifecycle_environment
         type: multiplechoice
-        choices: "{{ hostvars['satellite.example.com']['satellite_lifecycle_environments'] | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        choices: "{{ satellite_lifecycle_environments | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
         required: true
       - question_name: Next Lifecycle Environment
         variable: lifecycle_environment
         type: multiplechoice
-        choices: "{{ hostvars['satellite.example.com']['satellite_lifecycle_environments'] | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        choices: "{{ satellite_lifecycle_environments | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
         required: true
+
+#######################
+### Satellite Vars ###
+######################
+satellite_organization: "Default Organization"
+satellite_validate_certs: false
+
+satellite_content_views:
+  # Red Hat Enterprise Linux 7
+  - name: RHEL7
+    content_view: RHEL7
+    repositories:
+    - name: Red Hat Enterprise Linux 7 Server (RPMs)
+      basearch: x86_64
+      releasever: 7Server
+      product: 'Red Hat Enterprise Linux Server'
+    - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
+      basearch: x86_64
+      product: 'Red Hat Enterprise Linux Server'
+    - name: Red Hat Satellite Tools 6.8 (for RHEL 7 Server) (RPMs)
+      basearch: x86_64
+      product: 'Red Hat Enterprise Linux Server'
+  # Red Hat Enterprise Linux 8
+  - name: RHEL8
+    content_view: RHEL8
+    content_view_update: true
+    repositories:
+    - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+      releasever: 8
+      product: Red Hat Enterprise Linux for x86_64
+    - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+      releasever: 8
+      product: Red Hat Enterprise Linux for x86_64
+    - name: Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 (RPMs)
+      product: Red Hat Enterprise Linux for x86_64
+
+satellite_lifecycle_environments:
+  # Red Hat Enterprise Linux 7
+  - name: "RHEL7_Dev"
+    prior: "Library"
+  - name: "RHEL7_QA"
+    prior: "RHEL7_Dev"
+  - name: "RHEL7_Prod"
+    prior: "RHEL7_QA"
+  # Red Hat Enterprise Linux 8
+  - name: "RHEL8_Dev"
+    prior: "Library"
+  - name: "RHEL8_QA"
+    prior: "RHEL8_Dev"
+  - name: "RHEL8_Prod"
+    prior: "RHEL8_QA"
+
+satellite_activation_keys:
+  # Red Hat Enterprise Linux 7
+  - name: "RHEL7_Dev"
+    lifecycle_environment: "RHEL7_Dev"
+    content_view: "RHEL7"
+  - name: "RHEL7_QA"
+    lifecycle_environment: "RHEL7_QA"
+    content_view: "RHEL7"
+  - name: "RHEL7_Prod"
+    lifecycle_environment: "RHEL7_Prod"
+    content_view: "RHEL7"
+  # Red Hat Enterprise Linux 8
+  - name: "RHEL8_Dev"
+    lifecycle_environment: "RHEL8_Dev"
+    content_view: "RHEL8"
+  - name: "RHEL8_QA"
+    lifecycle_environment: "RHEL8_QA"
+    content_view: "RHEL8"
+  - name: "RHEL8_Prod"
+    lifecycle_environment: "RHEL8_Prod"
+    content_view: "RHEL8"
