@@ -7,7 +7,7 @@
   - name: Setup Components
     include_role:
       name: "redhat.satellite.{{ item }}"
-    loop: "{{ controller_components }}"
+    loop: "{{ satellite_components }}"
     when:
       - satellite_components | d("") | length > 0
 
