@@ -23,7 +23,7 @@ controller_inventory_sources:
 controller_templates:
 - name: LINUX / Register with Satellite
   project: Ansible official demo project
-  playbook: satellite/setup.yml
+  playbook: satellite/server_register.yml
   inventory: Workshop Inventory
   credentials:
     - Workshop Credential
