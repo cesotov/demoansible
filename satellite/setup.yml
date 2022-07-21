@@ -155,7 +155,6 @@ controller_templates:
 ### Satellite Vars ###
 ######################
 satellite_components:
-  - repositories
   - lifecycle_environments
   - content_views
   - activation_keys
