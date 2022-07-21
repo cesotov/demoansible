@@ -1,8 +1,35 @@
 user_message:
 
 controller_components:
+  - credential_types
   - inventory_sources
   - job_templates
+
+controller_credential_types:
+  - name: Satellite_Collection
+    kind: cloud
+    inputs:
+      fields:
+        - id: username
+          type: string
+          label: Satellite Username
+        - id: password
+          type: string
+          label: Satellite Password
+          secret: true
+        - id: host
+          type: string
+          label: Satellite Hostname
+      required:
+        - username
+        - password
+        - host
+    injectors:
+      env:
+        SATELLITE_SERVER: "{% raw %}{  { host  }}{% endraw %}"
+        SATELLITE_USERNAME: "{% raw %}{  { username  }}{% endraw %}"
+        SATELLITE_PASSWORD: "{% raw %}{  { password  }}{% endraw %}"
+        SATELLITE_VALIDATE_CERTS: 'false'
 
 controller_inventory_sources:
 - name: Satellite Inventory
@@ -27,6 +54,7 @@ controller_templates:
   inventory: Workshop Inventory
   credentials:
     - Workshop Credential
+    - Satellite Credential
   extra_vars:
     org_id: "Default_Organization"
   survey_enabled: true
