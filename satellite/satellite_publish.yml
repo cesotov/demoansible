@@ -16,14 +16,14 @@
       content_view: "{{ content_view }}"
       organization: "{{ organization }}"
       lifecycle_environments: "{{ lifecycle_environment }}"
-    async: "{{ publish_timeout }}"
-    poll: 0
-    register: publish_async
+#    async: "{{ publish_timeout }}"
+#    poll: 0
+#    register: publish_async
 
-  - name: check if content view is finished
-    async_status:
-      jid: "{{ publish_async.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: "{{ ( publish_timeout / publish_retry_interval ) | int }}"
-    delay: "{{ publish_retry_interval }}"
+#  - name: check if content view is finished
+#    async_status:
+#      jid: "{{ publish_async.ansible_job_id }}"
+#    register: job_result
+#    until: job_result.finished
+#    retries: "{{ ( publish_timeout / publish_retry_interval ) | int }}"
+#   delay: "{{ publish_retry_interval }}"
