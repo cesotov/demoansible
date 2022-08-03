@@ -13,7 +13,7 @@ This category of demos shows examples of linux operations and management with An
 
 ### Jobs
 - [**LINUX / Register with Satellite**](server_register.yml) - Register a RHEL server with Red Hat Satellite.
-- [**LINUX / Compliance Scan with Satellite](server_openscap.yml) - Run OpenSCAP scan and report to Satellite.
+- [**LINUX / Compliance Scan with Satellite**](server_openscap.yml) - Run OpenSCAP scan and report to Satellite.
 - [**SATELLITE / Publish Content View Version**](satellite_publish.yml) - Publish a new version of a content view.
 - [**SATELLITE / Promote Content View Version**](satellite_promote.yml) - Promote a content view version to the next lifecycle environment.
 

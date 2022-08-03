@@ -4,6 +4,7 @@ controller_components:
   - credential_types
   - inventory_sources
   - job_templates
+#  - workflow_job_templates
 
 controller_credential_types:
   - name: Satellite_Collection
@@ -149,6 +150,24 @@ controller_templates:
   credentials:
     - Satellite Credential
 
+controller_workflows:
+- name: WORKFLOW / RHEL7 STIG
+  extra_vars:
+    policy_scan: RHEL7_STIG
+  workflow_nodes:
+    - identifier: node101
+      unified_job_template:
+        name: LINUX / Compliance Scan with Satellite
+        unified_job_type: job
+      extra_data:
+        HOSTS: rhel7
+      related:
+        always_nodes:
+        - workflow_job_template:
+              identifier: node201
+        
+    - identifier:
+      
 
 
 #######################
