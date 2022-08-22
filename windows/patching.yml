@@ -2,7 +2,7 @@
 - name: Windows updates
   hosts: "{{ HOSTS | default('windows') }}"
   vars:
-    report_server: win1
+    report_server: student1-win1
   
   tasks:
   - include_role:
