@@ -1,5 +1,5 @@
 ---
-- include_vars: "{{ ansible_platform }}.yml"
+- include_vars: "{{ ansible_system }}.yml"
 
 - name: Install IIS
   ansible.windows.win_feature:
