@@ -13,7 +13,7 @@
 
 - name: Create Directory
   ansible.windows.win_file:
-    path: C:\Inetpub\wwwroot\reports
+    path: "{{ doc_root }}\\{{ reports_dir }}"
     state: directory
   check_mode: no
 
