@@ -18,6 +18,8 @@
 <h1>Ansible Automation Reports</h1>
 <h3><input type="search" placeholder="Search..." class="form-control search-input" data-table="main_net_table"/>
 </center>
+<table class="table table-striped mt32 main_net_table">
+<tbody>
 {% for report in reports.files %}
         <tr>
             <td class="summary_info">
@@ -26,7 +28,7 @@
                   <img class="router_image" src="server.png"> {{ report.path }}</p>
                 </div>
 {% endfor %}
-    </tbody>
+</tbody>
 </table>
 <center><p>Created with</p><br><img src="webpage_logo.png" width="300">
 </center>
