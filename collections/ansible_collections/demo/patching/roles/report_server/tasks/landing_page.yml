@@ -2,7 +2,15 @@
 - include_vars: "{{ ansible_system }}.yml"
 
 - name: get reports
-  find:
+  ansible.builtin.find:
     paths: "{{ doc_root }}/{{ reports_dir }}"
     patterns: '*.html'
   register: reports
+  check_mode: no
+
+- name: publish landing page
+  ansible.builtin.template:
+    src: report.j2
+    dest: "{{ doc_root }}/index.html"
+  check_mode: no
+    
