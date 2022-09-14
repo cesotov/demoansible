@@ -17,7 +17,7 @@ controller_projects:
     scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
 
 controller_credential_types:
-  - name: "Insights Collection"
+  - name: Insights Collection
     kind: cloud
     inputs:
       fields:
@@ -32,6 +32,30 @@ controller_credential_types:
       env:
         INSIGHTS_USER: "{% raw %}{  { insights_user  }}{% endraw %}"
         INSIGHTS_PASSWORD: "{% raw %}{  { insights_password  }}{% endraw %}"
+  - name: Satellite Collection
+    kind: cloud
+    inputs:
+      fields:
+        - id: username
+          type: string
+          label: Satellite Username
+        - id: password
+          type: string
+          label: Satellite Password
+          secret: true
+        - id: host
+          type: string
+          label: Satellite Hostname
+      required:
+        - username
+        - password
+        - host
+    injectors:
+      env:
+        SATELLITE_SERVER: "{% raw %}{  { host  }}{% endraw %}"
+        SATELLITE_USERNAME: "{% raw %}{  { username  }}{% endraw %}"
+        SATELLITE_PASSWORD: "{% raw %}{  { password  }}{% endraw %}"
+        SATELLITE_VALIDATE_CERTS: 'false'
 
 controller_credentials:
   - name: Insights Inventory
@@ -40,6 +64,20 @@ controller_credentials:
     inputs:
       insights_user: REPLACEME
       insights_password: REPLACEME
+  - name: Satellite Inventory
+    credential_type: Red Hat Satellite 6
+    organization: Default
+    inputs:
+      host: https://satellite.example.com
+      username: admin
+      password: ansible123!
+  - name: Satellite Collection
+    credential_type: Satellite Collection
+    organization: Default
+    inputs:
+      host: https://satellite.example.com
+      username: admin
+      password: ansible123!
 
 controller_inventory_sources:
   - name: Insights Inventory
@@ -48,6 +86,25 @@ controller_inventory_sources:
     source_project: Ansible official demo project
     source_path: linux/inventory.insights.yml
     credential: Insights Inventory
+  - name: Satellite Inventory
+    inventory: Workshop Inventory
+    source: satellite6
+    overwrite: true
+    credential: Satellite Inventory
+    source_vars:
+      hostnames:
+        - name.split('.')[0]
+      groups:
+        patch_bugs: foreman_content_facet_attributes.errata_counts.bugfix
+        patch_enhancements: foreman_content_facet_attributes.errata_counts.enhancement
+        patch_security: foreman_content_facet_attributes.errata_counts.security
+      keyed_groups:
+              - prefix: env
+                key: foreman_content_facet_attributes.lifecycle_environment_name
+              - prefix: cv
+                key: foreman_content_facet_attributes.content_view_name
+              - prefix: os
+                key: foreman_operatingsystem_name
 
 
 controller_templates:
@@ -63,8 +120,9 @@ controller_templates:
     - "Workshop Credential"
     survey_enabled: true
     extra_vars:
-      activation_key: undef
-      org_id: undef
+      activation_key: !unsafe "RHEL{{ ansible_distribution_major_version }}_{{ env }}"
+      org_id: Default_Organization
+      sat_url: satellite.example.com
     survey:
       name: ''
       description: ''
@@ -81,9 +139,9 @@ controller_templates:
             - QA
             - Prod
           required: true
-        - question_name: Ansible Group
+        - question_name: Insights Group Tag
           type: text
-          variable: ansible_group
+          variable: insights_tag
           required: true
 
   - name: "LINUX / Troubleshoot"
@@ -141,6 +199,7 @@ controller_templates:
     inventory: "Workshop Inventory"
     project: "Ansible official demo project"
     playbook: "linux/patching.yml"
+    execution_environment: Default execution environment
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
@@ -236,6 +295,7 @@ controller_templates:
     project: Fact Scan
     playbook: scan_facts.yml
     inventory: Workshop Inventory
+    execution_environment: Default execution environment
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
