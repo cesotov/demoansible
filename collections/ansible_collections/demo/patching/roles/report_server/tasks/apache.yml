@@ -1,4 +1,6 @@
 ---
+- include_vars: "{{ ansible_platform }}.yml"
+
 - yum:
     name: httpd
     state: latest
