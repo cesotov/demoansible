@@ -1,0 +1,8 @@
+---
+- include_vars: "{{ ansible_system }}.yml"
+
+- name: get reports
+  find:
+    paths: "{{ doc_root }}/{{ reports_dir }}"
+    patterns: '*.html'
+  register: reports
