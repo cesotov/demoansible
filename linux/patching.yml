@@ -13,6 +13,7 @@
     - include_role:
         name: "{{ item }}"
       loop:
+        - demo.patching.report_server
         - demo.patching.report_linux
         - demo.patching.report_linux_patching
 
