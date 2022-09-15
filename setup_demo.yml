@@ -9,8 +9,16 @@
       loop: "{{ controller_components }}"
       vars:
         controller_components:
-          - notification_templates
+          #- organizations
+          #- execution_environments
+          #- notification_templates
           - job_templates
+        controller_execution_environments:
+          - name: product-demos
+            image: quay.io/ansible/awx-ee
+        controller_organizations:
+          - name: Default
+            default_environment: product-demos
         controller_notifications:
           - name: Telemetry
             organization: Default
