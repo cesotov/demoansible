@@ -25,7 +25,7 @@
           {% set page = report.path.split('/')[-1] %}
         {% endif %}
         {% if ansible_system == 'Win32NT' %}
-          {% set page = report.path.split('\')[-1] %}
+          {% set page = report.path.split('\\')[-1] %}
         {% endif %}
         <tr>
             <td class="summary_info">
