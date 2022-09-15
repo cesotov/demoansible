@@ -9,7 +9,7 @@
       name: demo.patching.patch_windows
 
   - block:
-  
+
     - include_role:
         name: "{{ item }}"
       loop:
@@ -19,7 +19,7 @@
 
     - include_role:
         name: demo.patching.report_server
-        tasks_from: landing_page
+        tasks_from: windows_landing_page
 
     delegate_to: "{{ report_server }}"
     run_once: yes
