@@ -2,36 +2,27 @@
 - include_vars: "{{ ansible_system }}.yml"
 
 - name: get reports
-  ansible.builtin.find:
-    paths: "{{ doc_root }}/{{ reports_dir }}"
-    patterns: '*.html'
-  register: reports
-  check_mode: no
-  when: ansible_system == 'Linux'
-
-- name: get reports
   ansible.windows.win_find:
     paths: "{{ doc_root }}/{{ reports_dir }}"
     patterns: '*.html'
   register: reports
   check_mode: no
-  when: ansible_system == 'Win32NT'
 
 - name: publish landing page
-  ansible.builtin.template:
+  ansible.builtin.win_template:
     src: report.j2
     dest: "{{ doc_root }}/index.html"
   check_mode: no
 
 - name: copy CSS over
-  ansible.builtin.copy:
+  ansible.builtin.win_copy:
     src: "css"
     dest: "{{ doc_root }}"
     directory_mode: true
   check_mode: no
 
 - name: copy logos over
-  ansible.builtin.copy:
+  ansible.builtin.win_copy:
     src: "{{ item }}" 
     dest: "{{ doc_root }}"
     directory_mode: true

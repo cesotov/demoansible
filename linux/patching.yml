@@ -19,7 +19,7 @@
 
     - include_role:
         name: demo.patching.report_server
-        tasks_from: landing_page
+        tasks_from: linux_landing_page
         
     delegate_to: "{{ report_server }}"
     run_once: yes
