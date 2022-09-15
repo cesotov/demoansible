@@ -25,10 +25,12 @@
         <tr>
             <td class="summary_info">
               <div id="hostname">
-                <p class="hostname"> <img class="router_image" src="report.png">
-                <a href="{{ reports_dir }}/{{ page }}"> {{ page }} <a> 
-                </p>
+                <p class="hostname"> <img class="router_image" src="report.png"></p>
               </div>  
+            </td>
+            <td>
+              <a href="{{ reports_dir }}/{{ page }}"> {{ page }} <a> 
+            </td>
 {% endfor %}
 </tbody>
 </table>
