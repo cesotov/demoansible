@@ -9,8 +9,8 @@
       loop: "{{ controller_components }}"
       vars:
         controller_components:
-          - organizations
-          - execution_environments
+          #- organizations
+          #- execution_environments
           - notification_templates
           - job_templates
         controller_execution_environments:
