@@ -9,13 +9,13 @@
       loop: "{{ controller_components }}"
       vars:
         controller_components:
-          #- organizations
-          #- execution_environments
+          - organizations
+          - execution_environments
           - notification_templates
           - job_templates
         controller_execution_environments:
           - name: product-demos
-            image: quay.io/ansible/awx-ee
+            image: http://quay.io/acme_corp/product-demos-ee:latest
         controller_organizations:
           - name: Default
             default_environment: product-demos
