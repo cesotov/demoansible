@@ -9,7 +9,7 @@
       name: demo.patching.patch_linux
 
   - block:
-     
+
     - include_role:
         name: "{{ item }}"
       loop:

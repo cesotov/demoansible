@@ -21,12 +21,7 @@
 <table class="table table-striped mt32 main_net_table">
 <tbody>
 {% for report in reports.files %}
-        {% if ansible_system == 'Linux' %}
-          {% set page = report.path.split('/')[-1] %}
-        {% endif %}
-        {% if ansible_system == 'Win32NT' %}
-          {% set page = report.path.split('\\')[-1] %}
-        {% endif %}
+        {% set page = report.path.split('\')[-1] %}
         <tr>
             <td class="summary_info">
               <div id="hostname">

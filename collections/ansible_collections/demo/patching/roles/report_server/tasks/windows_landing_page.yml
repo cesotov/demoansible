@@ -10,7 +10,7 @@
 
 - name: publish landing page
   ansible.builtin.win_template:
-    src: report.j2
+    src: linux_report.j2
     dest: "{{ doc_root }}/index.html"
   check_mode: no
 
