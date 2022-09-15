@@ -7,6 +7,15 @@
     patterns: '*.html'
   register: reports
   check_mode: no
+  when: ansible_system == 'Linux'
+
+- name: get reports
+  ansible.windows.win_find:
+    paths: "{{ doc_root }}/{{ reports_dir }}"
+    patterns: '*.html'
+  register: reports
+  check_mode: no
+  when: ansible_system == 'Win32NT'
 
 - name: publish landing page
   ansible.builtin.template:
