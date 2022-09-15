@@ -11,7 +11,7 @@
         controller_components:
           #- organizations
           #- execution_environments
-          #- notification_templates
+          - notification_templates
           - job_templates
         controller_execution_environments:
           - name: product-demos
