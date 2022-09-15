@@ -21,12 +21,16 @@
 <table class="table table-striped mt32 main_net_table">
 <tbody>
 {% for report in reports.files %}
+        {% set page = {{ report.path.split('/)[-1] %}
         <tr>
             <td class="summary_info">
               <div id="hostname">
-                <p class="hostname"> 
-                  <img class="router_image" src="report.png"> {{ report.path }}</p>
-                </div>
+                <p class="hostname"> <img class="router_image" src="report.png"> {{ page.split['.'][0] }} </p>
+              </div>
+            </td>
+            <td>
+                <a href="{{ reports_dir }}/{{ page }}"> {{ page }} <a>
+            </td>  
 {% endfor %}
 </tbody>
 </table>
