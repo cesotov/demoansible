@@ -4,6 +4,11 @@
   gather_facts: false
 
   tasks:
+  - name: Set Local Admin Password
+    ansible.windows.win_user:
+      name: Administrator
+      password: "{{ ansible_password }}"
+
   - name: Create new domain in a new forest on the target host
     ansible.windows.win_domain:
       dns_domain_name: ansible.local
