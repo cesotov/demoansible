@@ -10,6 +10,8 @@
         - activation_key is defined
         - org_id != ''
         - activation_key != ''
+        - org_id != 'undef'
+        - activation_key != 'undef'
 
   - name: set hostname
     hostname:
