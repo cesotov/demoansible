@@ -236,6 +236,7 @@ controller_templates:
     project: Fact Scan
     playbook: scan_facts.yml
     inventory: Workshop Inventory
+    execution_environment: Default execution environment
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
