@@ -1,4 +1,14 @@
 ---
+- name: Ensure python simlink exists
+  ansible.builtin.file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    state: link
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_python_version != "2.7.5"
+
 - name: Scan packages
   demo.patching.scan_packages:
     os_family: "{{ ansible_os_family }}"
