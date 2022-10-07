@@ -120,7 +120,7 @@ controller_templates:
     - "Workshop Credential"
     survey_enabled: true
     extra_vars:
-      activation_key: "{% raw %}RHEL{{ ansible_distribution_major_version }}_{{env}}{% endraw %}"
+      activation_key: !unsafe "RHEL{{ ansible_distribution_major_version }}_{{ env }}"
       org_id: Default_Organization
       sat_url: satellite.example.com
     survey:
