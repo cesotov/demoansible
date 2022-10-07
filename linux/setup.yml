@@ -65,19 +65,19 @@ controller_credentials:
       insights_user: REPLACEME
       insights_password: REPLACEME
   - name: Satellite Inventory
-    credential_type: satellite6
+    credential_type: Red Hat Satellite 6
     organization: Default
     inputs:
       host: https://satellite.example.com
       username: admin
-      password: satellite123
+      password: ansible123!
   - name: Satellite Collection
     credential_type: Satellite Collection
     organization: Default
     inputs:
       host: https://satellite.example.com
       username: admin
-      password: satellite123
+      password: ansible123!
 
 controller_inventory_sources:
   - name: Insights Inventory
