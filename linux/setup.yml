@@ -90,6 +90,7 @@ controller_inventory_sources:
     inventory: Workshop Inventory
     source: satellite6
     overwrite: true
+    credential: Satellite Inventory
     source_vars:
       hostnames:
         - name.split('.')[0]
