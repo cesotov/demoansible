@@ -53,6 +53,12 @@
       when:
         - controller_components | d("") | length > 0
 
+    - name: Increase Idle Time Force Log Out
+      include_role:
+        name: "redhat_cop.controller_configuration.settings"
+          - name: AUTH_SESSION_COOKIE_AGE
+            value: 180000
+
     - name: Log Demo
       ansible.builtin.uri:
         url: https://docs.google.com/forms/d/e/1FAIpQLSdIZ77YpETjEfGOoYlXtMnQiU-6M7QFlb2hJA4ujo25QYb2jw/formResponse
