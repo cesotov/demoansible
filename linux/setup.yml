@@ -139,9 +139,9 @@ controller_templates:
             - QA
             - Prod
           required: true
-        - question_name: Ansible Group
+        - question_name: Insights Group Tag
           type: text
-          variable: ansible_group
+          variable: insights_tag
           required: true
 
   - name: "LINUX / Troubleshoot"

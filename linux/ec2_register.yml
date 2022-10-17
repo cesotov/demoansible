@@ -63,4 +63,4 @@
       insights_tags:
         env: "{{ env }}"
         purpose: demo
-        group: "{{ ansible_group }}"
+        group: "{{ insights_tag }}"
