@@ -44,7 +44,7 @@
                   variable: feedback
                   required: true
         controller_settings:
-          - name: "AUTH_SESSION_COOKIE_AGE"
+          - name: "SESSION_COOKIE_AGE"
             value: 180000
 
     - name: "include configuration for {{ demo }}"
