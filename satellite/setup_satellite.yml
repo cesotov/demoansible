@@ -18,6 +18,7 @@
 
   - name: redhat.satellite.content_view_publish CV
     redhat.satellite.content_view_version:
+      organization: "{{ satellite_organization }}"
       content_view: "{{ item }}"
       lifecycle_environments:
         - "{{ item }}_Dev"
