@@ -23,9 +23,9 @@
         - "{{ item }}_Dev"
         - "{{ item }}_QA"
         - "{{ item }}_Prod"
-      loop:
-        - RHEL7
-        - RHEL8
+    loop:
+      - RHEL7
+      - RHEL8
 
   - name: Setup Components
     include_role:
