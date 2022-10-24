@@ -1,0 +1,53 @@
+---
+- name: verify operating system
+  assert:
+    that:
+      - ansible_os_family == 'RedHat'
+      - (ansible_distribution_major_version == '7') or (ansible_distribution_major_version == '8')
+
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname | regex_replace('_','-') }}"
+  
+- name: remove rhui client packages
+  yum:
+      name: rh-amazon-rhui-client*
+      state: removed
+
+- name: get current repos
+  command:
+    cmd: ls /etc/yum.repos.d/
+  register: repos
+  changed_when: False
+
+- name: remove existing rhui repos
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  loop: "{{ repos.stdout_lines }}"
+
+- name: install katello package
+  yum:
+    name: "{{ satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: present
+    validate_certs: no
+    disable_gpg_check: true
+
+- name: define activation key
+  set_fact:
+    activation_key: "{{ 'RHEL' + ansible_distribution_major_version + '_' + env }}"
+
+- name: register system via subscription-mangler
+  redhat_subscription:
+    state: present
+    activationkey: "{{ activation_key }}"
+    org_id: "{{ org_id | default('Default_Organization')}}"
+  throttle: 1
+
+- name: include repos
+  include_vars: "vars/{{ ansible_distribution + ansible_distribution_major_version }}.yml"
+
+- name: enable repos
+  rhsm_repository:
+    name: "{{ rhsm_enabled_repos }}"
+    state: enabled

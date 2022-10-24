@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files: setup.yml
+
+  tasks:
+  - name: Setup Components
+    include_role:
+      name: "redhat.satellite.{{ item }}"
+    loop: "{{ satellite_components }}"
+    when:
+      - satellite_components | d("") | length > 0
+
+  - name: Add SCAP Tailoring File
+    redhat.satellite.scap_tailoring_file:
+      name: RHEL7_STIG
+      organizations: "{{ satellite_organization }}"
+      scap_file: files/ssg-rhel7-ds-tailoring.xml

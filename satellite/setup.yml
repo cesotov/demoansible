@@ -1,0 +1,242 @@
+user_message:
+
+controller_components:
+  - credential_types
+  - inventory_sources
+  - job_templates
+#  - workflow_job_templates
+
+controller_credential_types:
+  - name: Satellite_Collection
+    kind: cloud
+    inputs:
+      fields:
+        - id: username
+          type: string
+          label: Satellite Username
+        - id: password
+          type: string
+          label: Satellite Password
+          secret: true
+        - id: host
+          type: string
+          label: Satellite Hostname
+      required:
+        - username
+        - password
+        - host
+    injectors:
+      env:
+        SATELLITE_SERVER: "{% raw %}{  { host  }}{% endraw %}"
+        SATELLITE_USERNAME: "{% raw %}{  { username  }}{% endraw %}"
+        SATELLITE_PASSWORD: "{% raw %}{  { password  }}{% endraw %}"
+        SATELLITE_VALIDATE_CERTS: 'false'
+
+controller_inventory_sources:
+- name: Satellite Inventory
+  inventory: Workshop Inventory
+  credential: Inventory Credential
+  source: satellite6
+  update_on_launch: false
+  overwrite: true
+  source_vars:
+    keyed_groups:
+      - prefix: env
+        key: foreman_content_facet_attributes.lifecycle_environment_name
+      - prefix: cv
+        key: foreman_content_facet_attributes.content_view_name
+      - prefix: os
+        key: foreman_operatingsystem_name
+      - prefix: scap
+        key: foreman_compliance_status_label
+
+controller_templates:
+- name: LINUX / Register with Satellite
+  project: Ansible official demo project
+  playbook: satellite/server_register.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Workshop Credential
+    - Satellite Credential
+  extra_vars:
+    org_id: "Default_Organization"
+  survey_enabled: true
+  survey:
+    name: ''
+    description: ''
+    spec:
+      - question_name: Server Name or Pattern
+        type: text
+        variable: HOSTS
+        required: false
+      - question_name: Choose Environment
+        type: multiplechoice
+        variable: env
+        choices:
+          - Dev
+          - QA
+          - Prod
+        required: true
+
+- name: LINUX / Compliance Scan with Satellite
+  project: Ansible official demo project
+  playbook: satellite/server_openscap.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Satellite Credential
+    - Workshop Credential
+  extra_vars:
+    policy_scan: all
+  survey_enabled: true
+  survey:
+    name: ''
+    description: ''
+    spec:
+      - question_name: Server Name or Pattern
+        type: text
+        variable: HOSTS
+        required: false
+
+- name: SATELLITE / Publish Content View Version
+  project: Ansible official demo project
+  playbook: satellite/satellite_publish.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Satellite Credential
+  extra_vars:
+    env: Dev
+  survey_enabled: true
+  survey:
+    name: ''
+    description: ''
+    spec:
+      - question_name: Select Content View
+        variable: content_view
+        type: multiplechoice
+        choices: "{{ satellite_content_views | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        required: true
+
+- name: SATELLITE / Promote Content View Version
+  project: Ansible official demo project
+  playbook: satellite/satellite_promote.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Satellite Credential
+  survey_enabled: true
+  survey:
+    name: ''
+    description: ''
+    spec:
+      - question_name: Select Content View
+        variable: content_view
+        type: multiplechoice
+        choices: "{{ satellite_content_views | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        required: true
+      - question_name: Current Lifecycle Environment
+        variable: current_lifecycle_environment
+        type: multiplechoice
+        choices: "{{ satellite_lifecycle_environments | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        required: true
+      - question_name: Next Lifecycle Environment
+        variable: lifecycle_environment
+        type: multiplechoice
+        choices: "{{ satellite_lifecycle_environments | selectattr('name', 'match', '^RHEL.*$') | map(attribute='name') | list}}"
+        required: true
+
+- name: SETUP / Satellite
+  project: Ansible official demo project
+  playbook: satellite/setup_satellite.yml
+  inventory: Workshop Inventory
+  credentials:
+    - Satellite Credential
+
+controller_workflows:
+- name: WORKFLOW / RHEL7 STIG
+  extra_vars:
+    policy_scan: RHEL7_STIG
+  workflow_nodes:
+    - identifier: node101
+      unified_job_template:
+        name: LINUX / Compliance Scan with Satellite
+        unified_job_type: job
+      extra_data:
+        HOSTS: rhel7
+      related:
+        always_nodes:
+        - workflow_job_template:
+              identifier: node201
+        
+    - identifier:
+      
+
+
+#######################
+### Satellite Vars ###
+######################
+satellite_components: undef
+  #- lifecycle_environments
+  #- content_views
+  #- activation_keys
+
+satellite_organization: "Default Organization"
+satellite_validate_certs: false
+
+satellite_content_views:
+  # Red Hat Enterprise Linux 7
+  - name: RHEL7
+    content_view: RHEL7
+    repositories:
+    - name: Red Hat Enterprise Linux 7 Server (RPMs)
+      product: 'Red Hat Enterprise Linux Server'
+    - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
+      product: 'Red Hat Enterprise Linux Server'
+    - name: Red Hat Satellite Tools 6.8 (for RHEL 7 Server) (RPMs)
+      product: 'Red Hat Enterprise Linux Server'
+  # Red Hat Enterprise Linux 8
+  - name: RHEL8
+    content_view: RHEL8
+    repositories:
+    - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+      product: Red Hat Enterprise Linux for x86_64
+    - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+      product: Red Hat Enterprise Linux for x86_64
+    - name: Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 (RPMs)
+      product: Red Hat Enterprise Linux for x86_64
+
+satellite_lifecycle_environments:
+  # Red Hat Enterprise Linux 7
+  - name: "RHEL7_Dev"
+    prior: "Library"
+  - name: "RHEL7_QA"
+    prior: "RHEL7_Dev"
+  - name: "RHEL7_Prod"
+    prior: "RHEL7_QA"
+  # Red Hat Enterprise Linux 8
+  - name: "RHEL8_Dev"
+    prior: "Library"
+  - name: "RHEL8_QA"
+    prior: "RHEL8_Dev"
+  - name: "RHEL8_Prod"
+    prior: "RHEL8_QA"
+
+satellite_activation_keys:
+  # Red Hat Enterprise Linux 7
+  - name: "RHEL7_Dev"
+    lifecycle_environment: "RHEL7_Dev"
+    content_view: "RHEL7"
+  - name: "RHEL7_QA"
+    lifecycle_environment: "RHEL7_QA"
+    content_view: "RHEL7"
+  - name: "RHEL7_Prod"
+    lifecycle_environment: "RHEL7_Prod"
+    content_view: "RHEL7"
+  # Red Hat Enterprise Linux 8
+  - name: "RHEL8_Dev"
+    lifecycle_environment: "RHEL8_Dev"
+    content_view: "RHEL8"
+  - name: "RHEL8_QA"
+    lifecycle_environment: "RHEL8_QA"
+    content_view: "RHEL8"
+  - name: "RHEL8_Prod"
+    lifecycle_environment: "RHEL8_Prod"
+    content_view: "RHEL8"
