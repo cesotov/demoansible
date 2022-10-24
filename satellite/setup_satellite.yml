@@ -4,12 +4,27 @@
   vars_files: setup.yml
 
   tasks:
+  - name: Setup CV
+    include_role:
+      name: redhat.satellite.content_views
+
+  - name: Publish CV
+    include_role:
+      name: redhat.satellite.content_view_publish
+    vars:
+      satellite_content_views:
+      - RHEL7
+      - RHEL8
+
   - name: Setup Components
     include_role:
       name: "redhat.satellite.{{ item }}"
-    loop: "{{ satellite_components }}"
-    when:
-      - satellite_components | d("") | length > 0
+  #  loop: "{{ satellite_components }}"
+    loop:
+      - lifecycle_environments
+      - activation_keys
+  #  when:
+  #    - satellite_components | d("") | length > 0
 
   - name: Add SCAP Tailoring File
     redhat.satellite.scap_tailoring_file:
