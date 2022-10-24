@@ -192,11 +192,9 @@ controller_workflows:
 ######################
 satellite_components: 
   - content_views
-  - content_view_publish
-
-  #- lifecycle_environments
-  #- content_views
-  #- activation_keys
+  #- content_view_publish
+  - lifecycle_environments
+  - activation_keys
 
 satellite_organization: "Default Organization"
 satellite_validate_certs: false
