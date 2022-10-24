@@ -5,6 +5,7 @@ controller_components:
   - credentials
   - inventory_sources
   - job_templates
+  - job_launch
 #  - workflow_job_templates
 
 controller_credential_types:
@@ -166,6 +167,10 @@ controller_templates:
   inventory: Workshop Inventory
   credentials:
     - Satellite Credential
+
+controller_launch_jobs:
+  - name: SETUP / Satellite
+    wait: false
 
 controller_workflows:
 - name: WORKFLOW / RHEL7 STIG
