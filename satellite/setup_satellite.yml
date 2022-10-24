@@ -3,7 +3,6 @@
   gather_facts: no
   vars_files: 
     - setup.yml
-    - host_vars/satellite.example.com
 
   tasks:
   - name: Setup Components
