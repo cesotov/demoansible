@@ -8,11 +8,22 @@
     include_role:
       name: redhat.satellite.content_views
 
-  - name: Publish CV
-    include_role:
-      name: redhat.satellite.content_view_publish
-    vars:
-      satellite_content_views:
+  #- name: Publish CV
+  #  include_role:
+  #    name: redhat.satellite.content_view_publish
+  #  vars:
+  #    satellite_content_views:
+  #    - RHEL7
+  #    - RHEL8
+
+  - name: redhat.satellite.content_view_publish CV
+    redhat.satellite.content_view_version:
+    content_view: "{{ item }}"
+    lifecycle_environments:
+      - "{{ item }}_Dev"
+      - "{{ item }}_QA"
+      - "{{ item }}_Prod"
+    loop:
       - RHEL7
       - RHEL8
 
