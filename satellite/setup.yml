@@ -190,7 +190,10 @@ controller_workflows:
 #######################
 ### Satellite Vars ###
 ######################
-satellite_components: undef
+satellite_components: 
+  - content_views
+  - content_view_publish
+
   #- lifecycle_environments
   #- content_views
   #- activation_keys
