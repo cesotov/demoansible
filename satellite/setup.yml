@@ -8,7 +8,7 @@ controller_components:
 #  - workflow_job_templates
 
 controller_credential_types:
-  - name: Satellite_Collection
+  - name: Satellite Collection
     kind: cloud
     inputs:
       fields:
