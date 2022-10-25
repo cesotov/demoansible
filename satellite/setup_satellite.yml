@@ -8,23 +8,11 @@
     include_role:
       name: redhat.satellite.content_views
 
-  #- name: Publish CV
-  #  include_role:
-  #    name: redhat.satellite.content_view_publish
-  #  vars:
-  #    satellite_content_views:
-  #    - RHEL7
-  #    - RHEL8
-
-  - name: redhat.satellite.content_view_publish CV
-    redhat.satellite.content_view_version:
-      organization: "{{ satellite_organization }}"
-      content_view: "{{ item }}"
-      lifecycle_environments:
-        - "{{ item }}_Dev"
-        - "{{ item }}_QA"
-        - "{{ item }}_Prod"
-    loop:
+  - name: Publish CV
+    include_role:
+      name: redhat.satellite.content_view_publish
+    vars:
+      satellite_content_views:
       - RHEL7
       - RHEL8
 
@@ -37,6 +25,18 @@
       - activation_keys
   #  when:
   #    - satellite_components | d("") | length > 0
+
+  - name: redhat.satellite.content_view_publish CV
+    redhat.satellite.content_view_version:
+      organization: "{{ satellite_organization }}"
+      content_view: "{{ item }}"
+      lifecycle_environments:
+        - "{{ item }}_Dev"
+        - "{{ item }}_QA"
+        - "{{ item }}_Prod"
+    loop:
+      - RHEL7
+      - RHEL8
 
   - name: Add SCAP Tailoring File
     redhat.satellite.scap_tailoring_file:
