@@ -2,8 +2,16 @@
 - hosts: localhost
   gather_facts: no
   vars_files: setup.yml
+  vars:
+    refresh_satellite_manifest: true
 
   tasks:
+  - name: refresh manifest
+    redhat.satellite.subscription_manifest:
+      organization: "Default Organization"
+      state: refreshed
+    when: refresh_satellite_manifest
+
   - name: Setup CV
     include_role:
       name: redhat.satellite.content_views
