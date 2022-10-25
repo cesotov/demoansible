@@ -56,8 +56,15 @@ controller_inventory_sources:
   credential: Satellite Inventory
   source: satellite6
   update_on_launch: false
+  execution_environment: Control Plane Execution Environment
   overwrite: true
   source_vars:
+    hostnames:
+      - name.split('.')[0]
+    groups:
+      patch_bugs: foreman_content_facet_attributes.errata_counts.bugfix
+      patch_enhancements: foreman_content_facet_attributes.errata_counts.enhancement
+      patch_security: foreman_content_facet_attributes.errata_counts.security
     keyed_groups:
       - prefix: env
         key: foreman_content_facet_attributes.lifecycle_environment_name
