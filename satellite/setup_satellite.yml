@@ -16,15 +16,9 @@
       - RHEL7
       - RHEL8
 
-  - name: Setup Components
+  - name: Setup Lifecycle Environment
     include_role:
-      name: "redhat.satellite.{{ item }}"
-  #  loop: "{{ satellite_components }}"
-    loop:
-      - lifecycle_environments
-      - activation_keys
-  #  when:
-  #    - satellite_components | d("") | length > 0
+      name: redhat.satellite.lifecycle_environments
 
   - name: redhat.satellite.content_view_publish CV
     redhat.satellite.content_view_version:
@@ -37,6 +31,10 @@
     loop:
       - RHEL7
       - RHEL8
+
+  - name: Setup activation_keys
+    include_role:
+      name: redhat.satellite.activation_keys
 
   - name: Add SCAP Tailoring File
     redhat.satellite.scap_tailoring_file:
