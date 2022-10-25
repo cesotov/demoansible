@@ -80,6 +80,9 @@ controller_templates:
   project: Ansible official demo project
   playbook: satellite/server_register.yml
   inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
   credentials:
     - Workshop Credential
     - Satellite Credential
@@ -107,6 +110,9 @@ controller_templates:
   project: Ansible official demo project
   playbook: satellite/server_openscap.yml
   inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
   credentials:
     - Satellite Credential
     - Workshop Credential
@@ -126,6 +132,9 @@ controller_templates:
   project: Ansible official demo project
   playbook: satellite/satellite_publish.yml
   inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
   credentials:
     - Satellite Credential
   extra_vars:
@@ -145,6 +154,9 @@ controller_templates:
   project: Ansible official demo project
   playbook: satellite/satellite_promote.yml
   inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
   credentials:
     - Satellite Credential
   survey_enabled: true
@@ -172,31 +184,15 @@ controller_templates:
   project: Ansible official demo project
   playbook: satellite/setup_satellite.yml
   inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
   credentials:
     - Satellite Credential
 
 controller_launch_jobs:
   - name: SETUP / Satellite
     wait: false
-
-controller_workflows:
-- name: WORKFLOW / RHEL7 STIG
-  extra_vars:
-    policy_scan: RHEL7_STIG
-  workflow_nodes:
-    - identifier: node101
-      unified_job_template:
-        name: LINUX / Compliance Scan with Satellite
-        unified_job_type: job
-      extra_data:
-        HOSTS: rhel7
-      related:
-        always_nodes:
-        - workflow_job_template:
-              identifier: node201
-        
-    - identifier:
-      
 
 
 #######################
