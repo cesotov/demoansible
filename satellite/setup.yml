@@ -191,6 +191,11 @@ controller_templates:
     - Satellite Credential
 
 controller_launch_jobs:
+  - name: SETUP
+    wait: false
+    extra_vars:
+      demo: linux
+
   - name: SETUP / Satellite
     wait: false
 
