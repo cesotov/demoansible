@@ -4,6 +4,10 @@
   gather_facts: false
 
   tasks:
+  - name: Check Username
+    assert:
+      that: ansible_user == 'Administrator'
+
   - name: Set Local Admin Password
     ansible.windows.win_user:
       name: Administrator
