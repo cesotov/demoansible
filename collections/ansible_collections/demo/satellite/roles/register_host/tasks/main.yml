@@ -51,6 +51,7 @@
   rhsm_repository:
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
+    
 - name: Install cockpit
   yum:
     name:
