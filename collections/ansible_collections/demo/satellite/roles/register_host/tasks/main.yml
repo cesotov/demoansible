@@ -51,3 +51,7 @@
   rhsm_repository:
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
+    
+- name: enable remote execution
+  https://satellite:9090/ssh/pubkey
+  
