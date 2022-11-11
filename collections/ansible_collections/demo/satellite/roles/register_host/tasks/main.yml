@@ -53,5 +53,9 @@
     state: enabled
     
 - name: enable remote execution
-  https://satellite:9090/ssh/pubkey
-  
+  authorized_key:
+    user: root
+    state: present
+    key: https://satellite:9090/ssh/pubkey
+    validate_certs: no
+    
