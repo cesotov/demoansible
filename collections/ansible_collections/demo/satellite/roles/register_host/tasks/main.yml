@@ -51,6 +51,40 @@
   rhsm_repository:
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
+- name: Install cockpit
+  yum:
+    name:
+      - cockpit-bridge
+      - cockpit-composer
+      - cockpit-dashboard
+      - cockpit-doc
+      - cockpit-machines
+      - cockpit-packagekit
+      - cockpit-pcp
+      - cockpit-shell
+      - cockpit-storaged
+      - cockpit-system
+      - cockpit-ws
+      - subscription-manager-cockpit
+      - cockpit
+    state: latest
+
+- name: Install RHEL7 specific packages
+  yum:
+    name:
+      - cockpit-docker
+      - cockpit-leapp
+    state: latest
+  when: ansible_distribution_major_version=="7"
+
+- name: Install RHEL8 specific packages
+  yum:
+    name:
+      - cockpit-session-recording
+      - cockpit-podman
+    state: latest
+  when: ansible_distribution_major_version=="8"
+
     
 - name: enable remote execution
   authorized_key:
