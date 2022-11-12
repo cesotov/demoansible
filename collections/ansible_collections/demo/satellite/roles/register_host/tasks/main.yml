@@ -55,6 +55,8 @@
 - name: Install cockpit
   yum:
     name:
+      - cockpit
+      - cockpit-ws
       - cockpit-bridge
       - cockpit-composer
       - cockpit-dashboard
@@ -62,9 +64,7 @@
       - cockpit-packagekit
       - cockpit-pcp
       - cockpit-system
-      - cockpit-ws
       - subscription-manager-cockpit
-      - cockpit
     state: latest
 
 - name: Install RHEL7 specific packages
@@ -83,6 +83,12 @@
     state: latest
   when: ansible_distribution_major_version=="8"
 
+- name: install satellite client
+  yum:
+    name:
+      - katello-host-tools
+      - katello-host-tools-trace
+    state: latest
     
 - name: enable remote execution
   authorized_key:
