@@ -11,7 +11,7 @@
   
 - name: remove rhui client packages
   yum:
-      name: rh-amazon-rhui-client*
+      name: google-rhui-client*
       state: removed
 
 - name: get current repos
