@@ -87,7 +87,7 @@
   yum:
     name:
       - katello-host-tools
-      - katello-host-tools-trace
+      - katello-host-tools-tracer
     state: latest
     
 - name: enable remote execution
