@@ -8,12 +8,6 @@
 - name: set hostname
   hostname:
     name: "{{ inventory_hostname | regex_replace('_','-') }}"
-  register: nodename
-  
-- name: dump nodename info
-  debug:
-    var: nodename
-    verbosity: 2
   
 - name: remove rhui client packages
   yum:
