@@ -8,10 +8,18 @@
 - name: set hostname
   hostname:
     name: "{{ inventory_hostname | regex_replace('_','-') }}"
+  register: nodename
+  
+- name: dump nodename info
+  debug:
+    var: nodename
+    verbosity: 2
   
 - name: remove rhui client packages
   yum:
-      name: google-rhui-client*
+      name: 
+        - google-rhui-client*
+        - rh-amazon-rhui-client*
       state: removed
 
 - name: get current repos
@@ -26,7 +34,7 @@
     state: absent
   loop: "{{ repos.stdout_lines }}"
 
-- name: install katello package
+- name: install satellite certificate
   yum:
     name: "{{ satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
@@ -41,6 +49,7 @@
   redhat_subscription:
     state: present
     activationkey: "{{ activation_key }}"
+    consumer_name: 
     org_id: "{{ org_id | default('Default_Organization')}}"
   throttle: 1
 
@@ -51,7 +60,8 @@
   rhsm_repository:
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
-    
+
+#These should be included in the image
 - name: Install cockpit
   yum:
     name:
@@ -83,6 +93,7 @@
     state: latest
   when: ansible_distribution_major_version=="8"
 
+# Not these packages
 - name: install satellite client
   yum:
     name:
@@ -94,6 +105,6 @@
   authorized_key:
     user: root
     state: present
-    key: https://satellite:9090/ssh/pubkey
+    key: "{{ satellite_url }}:9090/ssh/pubkey"
     validate_certs: no
     
