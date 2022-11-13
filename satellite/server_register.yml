@@ -2,7 +2,7 @@
 - hosts: "{{ HOSTS }}"
   become: yes
   vars:
-    env: undef
+    # env: undef
     satellite_url: "{{ lookup('ansible.builtin.env', 'SATELLITE_SERVER') }}"
   roles:
     - demo.satellite.register_host
