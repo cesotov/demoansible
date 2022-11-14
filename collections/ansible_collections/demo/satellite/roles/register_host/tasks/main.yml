@@ -7,7 +7,7 @@
 
 - name: set hostname
   hostname:
-    name: "{{ inventory_hostname | regex_replace('_','-') }}"
+    name: "{{ instance_name }}"
   
 - name: remove rhui client packages
   yum:
@@ -43,7 +43,7 @@
   redhat_subscription:
     state: present
     activationkey: "{{ activation_key }}"
-    consumer_name: 
+    consumer_name: "{{ instance_name }}"
     org_id: "{{ org_id | default('Default_Organization')}}"
   throttle: 1
 
@@ -64,7 +64,7 @@
     
 - name: enable remote execution
   authorized_key:
-    user: "{{ ansible_user }}"
+    user: "{{ satellite_user }}"
     state: present
     key: "{{ satellite_url }}:9090/ssh/pubkey"
     validate_certs: no
