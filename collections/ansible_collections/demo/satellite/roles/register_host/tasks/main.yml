@@ -55,39 +55,6 @@
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
 
-#These should be included in the image
-- name: Install cockpit
-  yum:
-    name:
-      - cockpit
-      - cockpit-ws
-      - cockpit-bridge
-      - cockpit-composer
-      - cockpit-dashboard
-      - cockpit-doc
-      - cockpit-packagekit
-      - cockpit-pcp
-      - cockpit-system
-      - subscription-manager-cockpit
-    state: latest
-
-- name: Install RHEL7 specific packages
-  yum:
-    name:
-      - cockpit-docker
-      - cockpit-leapp
-    state: latest
-  when: ansible_distribution_major_version=="7"
-
-- name: Install RHEL8 specific packages
-  yum:
-    name:
-      - cockpit-session-recording
-      - cockpit-podman
-    state: latest
-  when: ansible_distribution_major_version=="8"
-
-# Not these packages
 - name: install satellite client
   yum:
     name:
