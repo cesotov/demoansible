@@ -64,7 +64,7 @@
     
 - name: enable remote execution
   authorized_key:
-    user: "{{ satellite_user }}"
+    user: "{{ rex_user }}"
     state: present
     key: "{{ satellite_url }}:9090/ssh/pubkey"
     validate_certs: no
