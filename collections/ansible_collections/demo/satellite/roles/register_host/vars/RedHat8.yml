@@ -4,3 +4,5 @@ rhsm_enabled_repos:
   - rhel-8-for-x86_64-appstream-rpms
   - satellite-client-6-for-rhel-8-x86_64-rpms
 instance_name: "{{ inventory_hostname | regex_replace('_','-') }}"
+rex_user: root
+# rex_user: "{{ ansible_user }}"
