@@ -6,3 +6,4 @@
     satellite_url: "{{ lookup('ansible.builtin.env', 'SATELLITE_SERVER') }}"
   roles:
     - demo.satellite.register_host
+    - redhat.rhel_system_roles.cockpit
