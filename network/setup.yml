@@ -6,7 +6,7 @@ controller_components:
   - projects
   - credentials
   - inventories
-  - controller_hosts
+  - hosts
   - inventory_sources
   - inventory_source_update
   - job_templates
