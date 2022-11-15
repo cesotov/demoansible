@@ -53,7 +53,7 @@ controller_credentials:
     credential_type: Machine
     organization: Networking
     inputs:
-      ssh_key_data: "{{ lookup('file', '/root/.ssh/id_rsa') }}"
+      ssh_key_data: "{{ ssh_key }}"
 
 controller_hosts:
   - name: node1
