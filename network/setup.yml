@@ -4,7 +4,9 @@ user_message:
 controller_components:
   - organizations
   - projects
+  - credentials
   - inventories
+  - controller_hosts
   - inventory_sources
   - inventory_source_update
   - job_templates
@@ -23,8 +25,19 @@ controller_projects:
     update_project: yes
     wait: yes
 
+  - name: Ansible official demo project (Network)
+    organization: Networking
+    scm_type: git
+    scm_branch: main
+    scm_url: https://github.com/nleiva/red-ht-product-demos
+    update_project: yes
+    wait: yes
+    description: "Copy of Ansible official demo project for Network ORG"
+
 controller_inventories:
   - name: Network Inventory
+    organization: Networking
+  - name: Workshop Inventory (NET)
     organization: Networking
 
 controller_inventory_sources:
@@ -34,6 +47,20 @@ controller_inventory_sources:
     overwrite: true
     source_project: Network Golden Configs
     source_path: hosts
+
+controller_credentials:
+  - name: Workshop Credential (NET)
+    credential_type: Machine
+    organization: Networking
+    inputs:
+      ssh_key_data: "{{ lookup('file', '/root/.ssh/id_rsa') }}"
+
+controller_hosts:
+  - name: node1
+    inventory: Workshop Inventory (NET)
+    variables:
+      ansible_user: rhel
+      ansible_host: node1
 
 controller_templates:
   - name: NETWORK / Configuration
@@ -71,8 +98,8 @@ controller_templates:
   - name: "NETWORK / Report"
     job_type: check
     organization: Networking
-    inventory: Network Inventory
-    project: "Ansible official demo project"
+    inventory: Workshop Inventory (NET)
+    project: "Ansible official demo project (Network)"
     playbook: "network/report.yml"
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
@@ -80,7 +107,7 @@ controller_templates:
     use_fact_cache: true
     ask_job_type_on_launch: yes
     credentials:
-    - "Workshop Credential"
+    - "Workshop Credential (NET)"
     survey_enabled: true
     survey:
       name: ''
