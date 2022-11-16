@@ -5,7 +5,7 @@
 
 - name: Collect facts
   hosts: routers
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     - name: Gather all network resource and minimal legacy facts [Cisco IOS]
@@ -25,10 +25,11 @@
         gather_subset: min
         gather_network_resources: all
       when: ansible_network_os == 'cisco.iosxr.iosxr'
-      
-    - name: Resolve IP address
-      ansible.builtin.set_fact:
-        ansible_host: "{{ lookup('community.general.dig', inventory_hostname)}}"
+
+    # The dig lookup requires the python 'dnspython' library  
+    # - name: Resolve IP address
+    #   ansible.builtin.set_fact:
+    #     ansible_host: "{{ lookup('community.general.dig', inventory_hostname)}}"
 
 - hosts: "{{ HOSTS }}"
   become: yes
