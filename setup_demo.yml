@@ -2,8 +2,6 @@
 - name: Setup demo
   hosts: localhost
   gather_facts: false
-  vars:
-    repo: https://github.com/nleiva/red-ht-product-demos
 
   tasks:
     - name: Default Components
@@ -49,26 +47,6 @@
         controller_settings:
           - name: "SESSION_COOKIE_AGE"
             value: 180000
-
-    - name: Get user 1
-      ansible.builtin.command: "whoami"
-      register: who
-
-    - name: Print WHO 1
-      ansible.builtin.debug:
-        msg: "{{ who }}"
-
-    - name: Get user 2
-      ansible.builtin.command: "sudo whoami"
-      register: who
-
-    - name: Print WHO 2
-      ansible.builtin.debug:
-        msg: "{{ who }}"
-
-    - name: Get SSH data
-      ansible.builtin.command: "sudo cat /root/.ssh/id_rsa"
-      register: input
 
     - name: Get credential data
       ansible.builtin.set_fact:
