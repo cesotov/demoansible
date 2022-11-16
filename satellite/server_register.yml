@@ -7,4 +7,3 @@
     cockpit_packages: minimal
   roles:
     - demo.satellite.register_host
-5
