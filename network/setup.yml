@@ -66,7 +66,7 @@ controller_templates:
     job_type: check
     organization: Default
     inventory: Workshop Inventory
-    project: "Ansible official demo project (Network)"
+    project: "Ansible official demo project"
     playbook: "network/report.yml"
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
