@@ -55,7 +55,7 @@
         check_mode: no
 
       - ansible.builtin.copy:
-          dest: "{{ web_path }}"/.htaccess
+          dest: "{{ web_path }}/.htaccess"
           content: Options +Indexes
         check_mode: no
 
