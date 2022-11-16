@@ -8,3 +8,4 @@
   roles:
     - demo.satellite.register_host
     - redhat.rhel_system_roles.cockpit
+5
