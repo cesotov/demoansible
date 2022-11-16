@@ -21,7 +21,7 @@
             <td>{{interface['name']}}</td>
             <td>{{interface['description']|default("none")}}</td>
             <td>{{interface['duplex']|default("default")}}</td>
-            <td>{{interface['enabled']}}</td>
+            <td>{{interface['enabled']|default("N/A")}}</td>
             <td>{{interface['mtu']|default("default")}}</td>
             <td>{{interface['speed']|default("default")}}</td>
         </tr>
