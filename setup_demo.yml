@@ -48,10 +48,6 @@
           - name: "SESSION_COOKIE_AGE"
             value: 180000
 
-    - name: Get credential data
-      ansible.builtin.set_fact:
-        ssh_key: "{{ input.stdout }}"
-
     - name: "include configuration for {{ demo }}"
       ansible.builtin.include_vars: "{{ demo }}/setup.yml"
 
