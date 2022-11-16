@@ -106,6 +106,19 @@ controller_templates:
           - Prod
         required: true
 
+- name: LINUX / Setup Web Console
+  project: Ansible official demo project
+  playbook: satellite/server_webconsole.yml
+  inventory: Workshop Inventory
+  notification_templates_started: Telemetry
+  notification_templates_success: Telemetry
+  notification_templates_error: Telemetry
+  credentials:
+    - Workshop Credential
+    - Satellite Credential
+  extra_vars:
+    org_id: "Default_Organization"
+
 - name: LINUX / Compliance Scan with Satellite
   project: Ansible official demo project
   playbook: satellite/server_openscap.yml
@@ -190,6 +203,7 @@ controller_templates:
   credentials:
     - Satellite Credential
 
+    
 controller_launch_jobs:
   - name: SETUP
     wait: false

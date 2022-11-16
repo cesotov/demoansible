@@ -1,0 +1,8 @@
+- hosts: "{{ HOSTS }}"
+  become: yes
+  vars:
+    # env: undef
+    satellite_url: "{{ lookup('ansible.builtin.env', 'SATELLITE_SERVER') }}"
+    cockpit_packages: minimal
+  roles:
+    - redhat.rhel_system_roles.cockpit
