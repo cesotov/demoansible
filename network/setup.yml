@@ -5,6 +5,7 @@ controller_components:
   - projects
   - credentials
   - inventories
+  - hosts
   - inventory_sources
   - inventory_source_update
   - job_templates
@@ -28,6 +29,13 @@ controller_inventory_sources:
     overwrite: true
     source_project: Network Golden Configs
     source_path: hosts
+
+controller_hosts:
+  - name: node1
+    inventory: Network Inventory
+    variables:
+      ansible_user: rhel
+      ansible_host: node1
 
 controller_templates:
   - name: NETWORK / Configuration
@@ -65,7 +73,7 @@ controller_templates:
   - name: "NETWORK / Report"
     job_type: check
     organization: Default
-    inventory: Workshop Inventory
+    inventory: Network Inventory
     project: "Ansible official demo project"
     playbook: "network/report.yml"
     notification_templates_started: Telemetry
