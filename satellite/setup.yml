@@ -108,7 +108,7 @@ controller_templates:
 
 - name: LINUX / Setup Web Console
   project: Ansible official demo project
-  playbook: satellite/server_webconsole.yml
+  playbook: satellite/setup_webconsole.yml
   inventory: Workshop Inventory
   notification_templates_started: Telemetry
   notification_templates_success: Telemetry
