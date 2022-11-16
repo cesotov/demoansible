@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td>Ansible Mgmt IP</td>
-    <td class="sub_net_info">FIX!!</td>
+    <td class="sub_net_info">{{ hostvars[network_switch]['ansible_host'] | default('N/A') }}</td>
   </tr>
   <tr>
     <td>Ansible groups</td>

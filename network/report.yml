@@ -8,9 +8,27 @@
   gather_facts: true
 
   tasks:
-    - name: Debug message
-      ansible.builtin.debug:
-        msg: "OK"
+    - name: Gather all network resource and minimal legacy facts [Cisco IOS]
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: all
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Gather all network resource and minimal legacy facts [Cisco NX-OS]
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: all
+      when: ansible_network_os == 'cisco.nxos.nxos'
+
+    - name: Gather all network resource and minimal legacy facts [Cisco IOS XR]
+      cisco.iosxr.iosxr_facts:
+        gather_subset: min
+        gather_network_resources: all
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+      
+    - name: Resolve IP address
+      ansible.builtin.set_fact:
+        ansible_host: "{{ lookup('community.general.dig', inventory_hostname)}}"
 
 - hosts: "{{ HOSTS }}"
   become: yes
@@ -21,10 +39,6 @@
     - name: HOSTVARS
       ansible.builtin.debug: 
         msg: "{{ hostvars }}"
-
-    - name: GROUPS
-      ansible.builtin.debug: 
-        msg: "{{ groups }}"
 
     - ansible.builtin.include_role:
         name: demo.patching.build_report_network
