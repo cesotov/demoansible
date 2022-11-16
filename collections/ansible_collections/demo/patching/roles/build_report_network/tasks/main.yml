@@ -19,6 +19,6 @@
     - "redhat-ansible-logo.svg"
     - "router.png"
 
-- name: display link to inventory report
+- name: Display link to Linux patch report
   ansible.builtin.debug:
-    msg: "Please go to http://{{ ansible_host }}/network.html"
+    msg: "Please go to http://{{ hostvars[report_server]['ansible_host'] }}/reports/network.html"
