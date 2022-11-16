@@ -6,6 +6,6 @@ vendor:
   junos: "Juniper"
   eos: "Arista"
 transport:
-  cliconf: "network_cli"
-  netconf: "netconf"
-  httpapi: "httpapi"
+  cliconf: "Network_CLI"
+  netconf: "NETCONF"
+  nxapi: "NX-API"
