@@ -213,6 +213,9 @@ controller_launch_jobs:
   - name: SETUP / Satellite
     wait: false
 
+  - name: LINUX / Setup Web Console
+    wait: 
+
 
 #######################
 ### Satellite Vars ###
