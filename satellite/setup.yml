@@ -214,7 +214,7 @@ controller_launch_jobs:
     wait: false
 
   - name: LINUX / Setup Web Console
-    wait: 
+    wait: true
 
 
 #######################
