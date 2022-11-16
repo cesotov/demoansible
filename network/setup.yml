@@ -29,7 +29,7 @@ controller_projects:
     organization: Networking
     scm_type: git
     scm_branch: main
-    scm_url: https://github.com/nleiva/red-ht-product-demos
+    scm_url: "{{ repo }}"
     update_project: yes
     wait: yes
     description: "Copy of Ansible official demo project for Network ORG"
