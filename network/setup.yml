@@ -92,3 +92,4 @@ controller_templates:
           type: text
           variable: HOSTS
           required: true
+          default: node1
