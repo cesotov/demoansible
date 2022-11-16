@@ -35,6 +35,8 @@
   become: yes
   vars:
     report_server: node1
+    #web_path: /var/www/html/reports/
+    web_path: /var/www/html
   
   tasks:
     - ansible.builtin.include_role:
@@ -48,12 +50,12 @@
         check_mode: no
 
       - ansible.builtin.file:
-          path: /var/www/html/reports/
+          path: "{{ web_path }}"
           state: directory
         check_mode: no
 
       - ansible.builtin.copy:
-          dest: /var/www/html/reports/.htaccess
+          dest: "{{ web_path }}"/.htaccess
           content: Options +Indexes
         check_mode: no
 
