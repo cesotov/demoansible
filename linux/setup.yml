@@ -371,6 +371,10 @@ controller_templates:
       name: ''
       description: ''
       spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: HOSTS
+          required: true
         - question_name: Cockpit package load
           type: multiplechoice
           variable: cockpit_packages
