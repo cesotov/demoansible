@@ -363,7 +363,8 @@ controller_templates:
     diff_mode: yes
     ask_job_type_on_launch: yes
     extra_vars:
-      system_roles: cockpit
+      system_roles: 
+        - cockpit
     credentials:
       - "Workshop Credential"
     survey_enabled: true
