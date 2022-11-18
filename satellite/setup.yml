@@ -118,6 +118,24 @@ controller_templates:
     - Satellite Credential
   extra_vars:
     org_id: "Default_Organization"
+  survey_enabled: true
+  survey:
+    name: ''
+    description: ''
+    spec:
+      - question_name: Server Name or Pattern
+        type: text
+        variable: HOSTS
+        required: true
+      - question_name: Cockpit package load
+        type: multiplechoice
+        variable: cockpit_packages
+        default: minimal
+        choices:
+          - default
+          - minimal
+          - full
+        required: true
 
 - name: LINUX / Compliance Scan with Satellite
   project: Ansible official demo project
