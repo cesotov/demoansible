@@ -51,7 +51,7 @@ Navigate to the Credentials section and update the `Insights Inventory` credenti
 Edit the `Linux / System Roles` job to include the list of roles that you wish to apply and the variables applicable for each role. See documentation [here](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles) for configuring System Roles.
 
 ## Suggested Usage
-**Linux / Register** - Use this job to register systems to Red Hat Insights for showing Advisor recommendations and dynamic inventory.
+**Linux / Register** - Use this job to register systems to Red Hat Insights for showing Advisor recommendations and dynamic inventory.  Note that the "Ansible Group" will create an AAP inventory group, as well as tag hosts with that group name in Insights.
 
 **Linux / Troubleshoot** - Use this job to show incident response troubleshooting and basic running of commands with an Ansible Playbook.
 
