@@ -190,6 +190,7 @@ controller_templates:
   credentials:
     - Satellite Credential
 
+    
 controller_launch_jobs:
   - name: SETUP
     wait: false
@@ -198,7 +199,6 @@ controller_launch_jobs:
 
   - name: SETUP / Satellite
     wait: false
-
 
 #######################
 ### Satellite Vars ###
@@ -221,7 +221,7 @@ satellite_content_views:
       product: 'Red Hat Enterprise Linux Server'
     - name: Red Hat Enterprise Linux 7 Server - Extras RPMs x86_64
       product: 'Red Hat Enterprise Linux Server'
-    - name: Red Hat Satellite Utils 6.11 for RHEL 7 Server RPMs x86_64
+    - name: Red Hat Satellite Client 6 for RHEL 7 Server RPMs x86_64
       product: 'Red Hat Enterprise Linux Server'
   # Red Hat Enterprise Linux 8
   - name: RHEL8
@@ -231,7 +231,7 @@ satellite_content_views:
       product: Red Hat Enterprise Linux for x86_64
     - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream RPMs 8
       product: Red Hat Enterprise Linux for x86_64
-    - name: Red Hat Satellite Utils 6.11 for RHEL 8 x86_64 RPMs
+    - name: Red Hat Satellite Client 6 for RHEL 8 x86_64 RPMs
       product: Red Hat Enterprise Linux for x86_64
 
 satellite_lifecycle_environments:

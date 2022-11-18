@@ -7,11 +7,13 @@
 
 - name: set hostname
   hostname:
-    name: "{{ inventory_hostname | regex_replace('_','-') }}"
+    name: "{{ instance_name }}"
   
 - name: remove rhui client packages
   yum:
-      name: rh-amazon-rhui-client*
+      name: 
+        - google-rhui-client*
+        - rh-amazon-rhui-client*
       state: removed
 
 - name: get current repos
@@ -26,21 +28,18 @@
     state: absent
   loop: "{{ repos.stdout_lines }}"
 
-- name: install katello package
+- name: install satellite certificate
   yum:
     name: "{{ satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
     validate_certs: no
     disable_gpg_check: true
 
-- name: define activation key
-  set_fact:
-    activation_key: "{{ 'RHEL' + ansible_distribution_major_version + '_' + env }}"
-
 - name: register system via subscription-mangler
   redhat_subscription:
     state: present
     activationkey: "{{ activation_key }}"
+    consumer_name: "{{ instance_name }}"
     org_id: "{{ org_id | default('Default_Organization')}}"
   throttle: 1
 
@@ -51,3 +50,18 @@
   rhsm_repository:
     name: "{{ rhsm_enabled_repos }}"
     state: enabled
+
+- name: install satellite client
+  yum:
+    name:
+      - katello-host-tools
+      - katello-host-tools-tracer
+    state: latest
+    
+- name: enable remote execution
+  authorized_key:
+    user: "{{ rex_user }}"
+    state: present
+    key: "{{ satellite_url }}:9090/ssh/pubkey"
+    validate_certs: no
+    
