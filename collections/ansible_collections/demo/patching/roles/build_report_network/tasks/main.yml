@@ -7,8 +7,7 @@
 - name: create HTML report
   ansible.builtin.template:
     src: report.j2
-    #dest: "{{ file_path }}/network.html"
-    dest: "{{ file_path }}/index.html"
+    dest: "{{ file_path }}/network.html"
   check_mode: no
 
 - name: copy CSS over

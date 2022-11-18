@@ -3,7 +3,6 @@ user_message:
 
 controller_components:
   - projects
-  - credentials
   - inventories
   - hosts
   - inventory_sources
@@ -88,8 +87,13 @@ controller_templates:
       name: ''
       description: ''
       spec:
-        - question_name: Server Name or Pattern
-          type: text
+        - question_name: What devices do you want to include in the report?
+          type: multiplechoice
           variable: HOSTS
+          default: routers
           required: true
-          default: node1
+          choices:
+            - sandbox-iosxe-latest-1.cisco.com
+            - sandbox-iosxr-1.cisco.com
+            - sandbox-nxos-1.cisco.com
+            - routers

@@ -1,5 +1,4 @@
-#file_path: "{{ web_path | default('/var/www/html/reports') }}"
-file_path: "{{ web_path | default('/var/www/html') }}"
+file_path: "{{ web_path | default('/var/www/html/reports') }}"
 vendor:
   ios: &my_value 'Cisco'
   nxos: *my_value
