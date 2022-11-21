@@ -48,5 +48,7 @@
   - name: Output
     ansible.builtin.debug:
       msg: 
+        - "Output of podman ps command:"
         - "{{ podman_output.stdout_lines }}"
+        - "Contents of web page:"
         - "{{ web_output.content }}"
