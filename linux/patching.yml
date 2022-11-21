@@ -8,6 +8,11 @@
   - include_role:
       name: demo.patching.patch_linux
 
+  - name: Run the Insights Client Scan
+    command: insights-client
+    ignore_errors: yes
+    when: not ansible_check_mode
+
   - block:
 
     - include_role:
