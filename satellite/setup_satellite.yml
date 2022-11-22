@@ -49,3 +49,8 @@
       name: RHEL7_STIG
       organizations: "{{ satellite_organization }}"
       scap_file: files/ssg-rhel7-ds-tailoring.xml
+
+  - name: Set Remote execution user
+    redhat.satellite.setting:
+      name: remote_execution_ssh_user
+      value: "{{ rex_user }}"
