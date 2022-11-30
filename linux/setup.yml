@@ -233,7 +233,6 @@ controller_templates:
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
-    ask_limit_on_launch: true
     use_fact_cache: true
     credentials:
       - Workshop Credential
