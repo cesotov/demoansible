@@ -8,10 +8,16 @@
   - include_role:
       name: demo.patching.patch_linux
 
+  - name: Tell user when Insights is not configured
+    msg: "Insights client does not appear to be configured. Scan will be skipped"
+    when:
+      - ansible_local.insights.system_id is not defined
+
   - name: Run the Insights Client Scan
     command: insights-client
-    ignore_errors: yes
-    when: not ansible_check_mode
+    when:
+      - not ansible_check_mode
+      - ansible_local.insights.system_id is defined
 
   - block:
 
