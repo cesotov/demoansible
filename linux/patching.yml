@@ -9,7 +9,8 @@
       name: demo.patching.patch_linux
 
   - name: Tell user when Insights is not configured
-    msg: "Insights client does not appear to be configured. Scan will be skipped"
+    debug:
+      msg: "Insights client does not appear to be configured. Scan will be skipped"
     when:
       - ansible_local.insights.system_id is not defined
 
