@@ -8,7 +8,7 @@
   - include_role:
       name: demo.patching.patch_linux
 
-  - name: Tell user when Insights is not configured
+  - name: Tell user when Insights Client is not configured
     debug:
       msg: "Insights client does not appear to be configured. Scan will be skipped"
     when:
