@@ -48,6 +48,11 @@ controller_inventory_sources:
     source_project: Ansible official demo project
     source_path: linux/inventory.insights.yml
     credential: Insights Inventory
+  - name: CISA Known Exploited Vulnerabilities
+    inventory: Workshop Inventory
+    source: scm
+    source_project: Ansible official demo project
+    source_path: linux/inventory.cisa.yml
 
 
 controller_templates:
