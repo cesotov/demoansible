@@ -67,13 +67,23 @@ class InventoryModule(BaseFileInventoryPlugin, Constructable):
             response = json.load(f)
             f.close()
 
+        kev = {}
+
         for entry in response['vulnerabilities']:
-            if 'vendorProject' in entry and 'product' in entry:
-                safe_name = to_safe_group_name('{} {}'.format(entry['vendorProject'].lower(),entry['product'].lower()))
-                group_name = self.inventory.add_group(safe_name)
-                for key in entry:
-                    self.inventory.set_variable(group_name, key, entry[key])
-                    self.inventory.set_variable(group_name, 'catalogVersion', response['catalogVersion'])
-                    self.inventory.set_variable(group_name, 'dateReleased', response['dateReleased'])
+            product = {'catalogVersion': response['catalogVersion'],
+                    'dateReleased': response['dateReleased']}
+            for key in entry:
+                product.update({key: entry[key]})
+
+            if entry['vendorProject'] in kev:
+                if entry['product'] in kev[entry['vendorProject']]:
+                    kev[entry['vendorProject']].update({entry['product']: [product] + [entry['vendorProject']]})
+                else:
+                    kev[entry['vendorProject']].update({entry['product']: [product]})
             else:
-                print("Skipping :{}".format(entry))
+                kev[entry['vendorProject']] = {entry['product']: [product]}
+                #print(json.dumps(kev, indent=4))
+
+        for entry in kev:
+            group_name = self.inventory.add_group(to_safe_group_name(entry.lower()))
+            self.inventory.set_variable(group_name, key, kev[entry])
