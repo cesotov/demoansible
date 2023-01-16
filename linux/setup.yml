@@ -139,7 +139,7 @@ controller_templates:
             - QA
             - Prod
           required: true
-        - question_name: Insights Group Tag
+        - question_name: Ansible Inventory Group (and Insights tag) to be created
           type: text
           variable: insights_tag
           required: true
@@ -327,6 +327,7 @@ controller_templates:
           type: textarea
           variable: message
           required: true
+          default: "This is Apache webserver running in a container with podman"
 
   - name: "LINUX / System Roles"
     job_type: run
@@ -386,7 +387,7 @@ controller_templates:
             - full
           required: true
 
-  - name: "LINUX / Compliance"
+  - name: "LINUX / Compliance Enforce"
     job_type: run
     inventory: "Workshop Inventory"
     project: "Ansible official demo project"
@@ -413,3 +414,28 @@ controller_templates:
           required: true
           choices:
             - stig
+
+  - name: "LINUX / Insights Compliance Scan"
+    job_type: run
+    inventory: "Workshop Inventory"
+    project: "Ansible official demo project"
+    playbook: "linux/insights_compliance_scan.yml"
+    credentials:
+    - "Workshop Credential"
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: HOSTS
+          required: true
+        - question_name: Have you associated a compliance profile in the Insights Console for all hosts to be scanned?  If not, then the scan will fail.
+          type: multiplechoice
+          variable: compliance_profile_configured
+          required: true
+          choices:
+            - "Yes"
+            - "No"
+          default: "No"

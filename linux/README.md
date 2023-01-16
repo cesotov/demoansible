@@ -26,7 +26,8 @@ This category of demos shows examples of linux operations and management with An
 - [**Linux / Fact Scan**](https://github.com/ansible/awx-facts-playbooks/blob/master/scan_facts.yml) - Run a fact, package, and service scan against a system and store in fact cache
 - [**Linux / Podman Webserver**](podman.yml) - Install and run a Podman webserver with given text on the home page
 - [**Linux / System Roles**](system_roles.yml) - Apply Linux system roles to servers. Must provide variables and role names.
-- [**Linux / Compliance**](compliance.yml) - Apply remediation to meet the requirements of a compliance baseline
+- [**Linux / Compliance Enforce**](compliance.yml) - Apply remediation to meet the requirements of a compliance baseline
+- [**Linux / Insights Compliance Scan**](insights_compliance_scan.yml) - Run a Compliance scan based on the configuration in [Red Hat Insights][https://console.redhat.com]
 
 ### Inventory
 
@@ -51,7 +52,7 @@ Navigate to the Credentials section and update the `Insights Inventory` credenti
 Edit the `Linux / System Roles` job to include the list of roles that you wish to apply and the variables applicable for each role. See documentation [here](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles) for configuring System Roles.
 
 ## Suggested Usage
-**Linux / Register** - Use this job to register systems to Red Hat Insights for showing Advisor recommendations and dynamic inventory.
+**Linux / Register** - Use this job to register systems to Red Hat Insights for showing Advisor recommendations and dynamic inventory.  Note that the "Ansible Group" will create an AAP inventory group, as well as tag hosts with that group name in Insights.
 
 **Linux / Troubleshoot** - Use this job to show incident response troubleshooting and basic running of commands with an Ansible Playbook.
 
@@ -65,11 +66,26 @@ Edit the `Linux / System Roles` job to include the list of roles that you wish t
 
 **Linux / Podman Webserver** - Use this job show managing individual containers with Podman via an Ansible Playbook.
 
-**Linux / System Roles** - This job demonstrates running [RHEL System Roles with AAP. See the documentation [here](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles) for how to configure system roles with variables by editing the extra_vars on the job template. Example:
+**Linux / System Roles** - This job demonstrates running [RHEL System Roles with AAP. See the documentation [here](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles) for how to configure system roles with variables by editing the extra_vars on the job template.
+
+Example 1:
 ```
 system_roles:
   - selinux
 
 selinux_state: enforcing
 ```
+
+Example 2 (less invasive, and runs faster):
+```
+system_roles:
+  - timesync
+
+timesync_ntp_servers:
+  - hostname: pool.ntp.org
+    pool: yes
+    iburst: yes
+```
 **Linux / Compliance** - Apply compliance profile hardening configuration from [here](https://galaxy.ansible.com/RedHatOfficial). BE AWARE: this could have unintended results based on the current state of your machine. Always test on a single machine before distributing at scale. For example, AWS instances have NOPASSWD allowed for sudo. Running STIG compliance without adding `sudo_remove_nopasswd: false` to extra_vars on the job template will lock you out of the machine. This variable is configured on the job template by default for this reason.
+
+**Linux / Insights Compliance Scan** - Scan the system according to the compliance profile configured via [Red Hat Insights](https://console.redhat.com). NOTE: This job will fail if the systems haven't been registered with Insights and associated with a relevant compliance profile. A survey when running the job will ask if you have configured all systems with a compliance profile, and effectively skip all tasks in the job template if the answer is "No".
