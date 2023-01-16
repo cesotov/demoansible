@@ -59,6 +59,7 @@ controller_inventory_sources:
   execution_environment: Control Plane Execution Environment
   overwrite: true
   source_vars:
+    validate_certs: false
     hostnames:
       - name.split('.')[0]
     groups:
