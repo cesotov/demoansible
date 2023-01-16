@@ -59,7 +59,6 @@ controller_inventory_sources:
   execution_environment: Control Plane Execution Environment
   overwrite: true
   source_vars:
-    validate_certs: false
     hostnames:
       - name.split('.')[0]
     groups:
@@ -75,6 +74,7 @@ controller_inventory_sources:
         key: foreman_operatingsystem_name
       - prefix: scap
         key: foreman_compliance_status_label
+    validate_certs: no
 
 controller_templates:
 - name: LINUX / Register with Satellite
