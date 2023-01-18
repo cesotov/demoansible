@@ -48,7 +48,7 @@
     redhat.satellite.scap_tailoring_file:
       name: RHEL7_STIG
       organizations: "{{ satellite_organization }}"
-      scap_file: 
+      scap_file: "{{ item }}"
     loop: 
       - files/ssg-rhel7-ds-tailoring.xml
       - files/ssg-rhel8-ds-tailoring-stig-gui.xml
