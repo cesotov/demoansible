@@ -32,30 +32,6 @@ controller_credential_types:
       env:
         INSIGHTS_USER: "{% raw %}{  { insights_user  }}{% endraw %}"
         INSIGHTS_PASSWORD: "{% raw %}{  { insights_password  }}{% endraw %}"
-  - name: Satellite Collection
-    kind: cloud
-    inputs:
-      fields:
-        - id: username
-          type: string
-          label: Satellite Username
-        - id: password
-          type: string
-          label: Satellite Password
-          secret: true
-        - id: host
-          type: string
-          label: Satellite Hostname
-      required:
-        - username
-        - password
-        - host
-    injectors:
-      env:
-        SATELLITE_SERVER: "{% raw %}{  { host  }}{% endraw %}"
-        SATELLITE_USERNAME: "{% raw %}{  { username  }}{% endraw %}"
-        SATELLITE_PASSWORD: "{% raw %}{  { password  }}{% endraw %}"
-        SATELLITE_VALIDATE_CERTS: 'false'
 
 controller_credentials:
   - name: Insights Inventory
@@ -66,13 +42,6 @@ controller_credentials:
       insights_password: REPLACEME
   - name: Satellite Inventory
     credential_type: Red Hat Satellite 6
-    organization: Default
-    inputs:
-      host: https://satellite.example.com
-      username: admin
-      password: ansible123!
-  - name: Satellite Collection
-    credential_type: Satellite Collection
     organization: Default
     inputs:
       host: https://satellite.example.com
