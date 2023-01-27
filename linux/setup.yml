@@ -78,6 +78,10 @@ controller_templates:
           type: text
           variable: insights_tag
           required: true
+        - question_name: Org ID
+          type: text
+          variable: org_id
+          required: true
 
   - name: "LINUX / Troubleshoot"
     job_type: run
