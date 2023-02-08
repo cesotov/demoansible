@@ -17,6 +17,7 @@ controller_projects:
 - name: Ansible Cloud Content Lab - AWS
   organization: Default
   scm_type: git
+  wait: yes
   scm_url: https://github.com/ansible-content-lab/aws.infrastructure_config_demos.git
   default_environment: Cloud Services Execution Environment
 
@@ -100,7 +101,7 @@ controller_templates:
       dmz_ssh_key_name: aws-test-key
       priv_network_ssh_key_name: aws-test-key
 
-  - name: Delete / AWS / Delete Peer Infrastructure
+  - name: Cloud / AWS / Delete Peer Infrastructure
     job_type: run
     organization: Default
     credentials:
@@ -114,7 +115,7 @@ controller_templates:
     extra_vars:
       aws_region: us-east-1
 
-  - name: Delete / AWS / Create Transit Infrastructure
+  - name: Cloud / AWS / Create Transit Infrastructure
     job_type: run
     organization: Default
     credentials:
@@ -130,7 +131,7 @@ controller_templates:
       dmz_ssh_key_name: aws-test-key
       priv_network_ssh_key_name: aws-test-key
 
-  - name: Delete / AWS / Delete Transit Infrastructure
+  - name: Cloud / AWS / Delete Transit Infrastructure
     job_type: run
     organization: Default
     credentials:
