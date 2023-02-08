@@ -2,7 +2,7 @@
 user_message:
 
 controller_components:
-  - execution-environments
+  - execution_environments
   - projects
   - credentials
   - inventory_sources
