@@ -35,6 +35,12 @@
     loop: "{{ repos.stdout_lines }}"
     when: "'rhui' in item"
 
+# Install subscription-manager if it's not there
+  - name: Install subscription-manager
+    ansible.builtin.yum:
+      name: subscription-manager
+      state: latest
+
   - name: install katello package
     yum:
       name: "https://{{ sat_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
