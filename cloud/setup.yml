@@ -16,6 +16,7 @@ controller_execution_environments:
 controller_projects:
 - name: Ansible Cloud Content Lab - AWS
   organization: Default
+  scm_type: git
   scm_url: https://github.com/ansible-content-lab/aws.infrastructure_config_demos.git
   default_environment: Cloud Services Execution Environment
 
