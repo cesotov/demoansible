@@ -35,12 +35,6 @@
     loop: "{{ repos.stdout_lines }}"
     when: "'rhui' in item"
 
-# Install subscription-manager if it's not there
-  - name: Install subscription-manager
-    ansible.builtin.yum:
-      name: subscription-manager
-      state: latest
-
   - name: install katello package
     yum:
       name: "https://{{ sat_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
@@ -54,6 +48,12 @@
       path: /etc/rhsm/rhsm.conf
       regexp: '^manage_repos'
       line: 'manage_repos = 1'
+
+# Install subscription-manager if it's not there
+  - name: Install subscription-manager
+    ansible.builtin.yum:
+      name: subscription-manager
+      state: present
 
   - name: register subscription mangler
     community.general.redhat_subscription:
