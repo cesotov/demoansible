@@ -8,11 +8,9 @@ collections:
   - name: redhat.insights
     version: 1.0.7
   - name: redhat.rhel_system_roles
-    version: 1.20.0
+    version: 1.16.2
   - name: community.general
     version: 6.3.0
-  - name: ansible.posix
-    version: 1.5.1
   - name: containers.podman
   #windows
   - name: chocolatey.chocolatey
