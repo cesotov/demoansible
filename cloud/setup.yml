@@ -256,6 +256,7 @@ controller_templates:
     credentials:
      - AWS
     project: Ansible Cloud Content Lab - AWS
+    playbook: playbook_create_reports.yml
     inventory: Workshop Inventory
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
@@ -270,6 +271,7 @@ controller_templates:
     credentials:
      - AWS
     project: Ansible Cloud Content Lab - AWS
+    playbook: playbook_create_reports.yml
     inventory: Workshop Inventory
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
