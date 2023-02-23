@@ -20,6 +20,7 @@ controller_projects:
   wait: yes
   scm_url: https://github.com/ansible-content-lab/aws.infrastructure_config_demos.git
   default_environment: Cloud Services Execution Environment
+  scm_branch: create_vm
 
 controller_credentials:
   - name: AWS
@@ -176,22 +177,22 @@ controller_templates:
           required: false
           variable: aws_public_key
 
-  - name: Cloud / Create VM
+  - name: Cloud / AWS / Create VM
     job_type: run
     organization: Default
     credentials: 
      - AWS
-     #- Azure
      - Workshop Credential
-    project: Ansible official demo project
-    playbook: cloud/create_vm.yml
+    project: Ansible Cloud Content Lab - AWS
+    playbook: playbook_create_vm.yml
     inventory: Workshop Inventory
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     survey_enabled: true
     extra_vars:
-      aws_region: us-east-2
+      aws_region: us-east-1
+      aws_keypair_name: aws-test-key
     survey:
       name: ''
       description: ''
@@ -204,13 +205,6 @@ controller_templates:
           type: text
           variable: vm_owner
           required: true
-        - question_name: Provider
-          type: multiplechoice
-          variable: vm_provider
-          required: true
-          choices:
-            - aws
-            #- azure
         - question_name: Blueprint
           type: multiplechoice
           variable: vm_blueprint
@@ -220,23 +214,32 @@ controller_templates:
             - windows_full
             - rhel8
             - rhel7
+        - question_name: Subnet
+          type: text
+          variable: aws_vpc_subnet_name
+          required: true
+          default: priv-net-private-subnet
+        - question_name: Security Group
+          type: text
+          variable: aws_securitygroup_name
+          required: true
+          default: private-network-sg
 
-  - name: Cloud / Destroy VM
+  - name: Cloud / AWS / Destroy VM
     job_type: run
     organization: Default
     credentials: 
      - AWS
-     #- Azure
      - Workshop Credential
-    project: Ansible official demo project
-    playbook: cloud/destroy_vm.yml
+    project: Ansible Cloud Content Lab - AWS
+    playbook: playbook_delete_inventory_vm.yml
     inventory: Workshop Inventory
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     survey_enabled: true
     extra_vars:
-      aws_region: us-east-2
+      aws_region: us-east-1
     survey:
       name: ''
       description: ''
@@ -245,3 +248,31 @@ controller_templates:
           type: text
           variable: HOSTS
           required: true
+
+  - name: Cloud / AWS / VPC Report
+    job_type: run
+    organization: Default
+    credentials:
+     - AWS
+    project: Ansible Cloud Content Lab - AWS
+    inventory: Workshop Inventory
+    notification_templates_started: Telemetry
+    notification_templates_success: Telemetry
+    notification_templates_error: Telemetry
+    extra_vars:
+      aws_region: us-east-1
+      aws_report: vpc
+
+  - name: Cloud / AWS / Tags Report
+    job_type: run
+    organization: Default
+    credentials:
+     - AWS
+    project: Ansible Cloud Content Lab - AWS
+    inventory: Workshop Inventory
+    notification_templates_started: Telemetry
+    notification_templates_success: Telemetry
+    notification_templates_error: Telemetry
+    extra_vars:
+      aws_region: us-east-1
+      aws_report: tags
