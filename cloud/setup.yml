@@ -222,9 +222,10 @@ controller_templates:
           type: multiplechoice
           variable: vm_blueprint
           required: true
-          choices: #"{{ lookup('fileglob', 'blueprints/*.yml') | regex_replace(',','\n') | regex_findall('.*/(.*)(?=.yml)') | list }}"
+          choices:
             - windows_core
             - windows_full
+            - rhel9
             - rhel8
             - rhel7
         - question_name: Subnet
