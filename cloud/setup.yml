@@ -206,6 +206,18 @@ controller_templates:
           type: text
           variable: vm_owner
           required: true
+        - question_name: Deployment
+          type: text
+          variable: vm_deployment
+          required: true
+        - question_name: Environment
+          type: multiplechoice
+          variable: vm_environment
+          required: true
+          choices:
+            - Dev
+            - QA
+            - Prod
         - question_name: Blueprint
           type: multiplechoice
           variable: vm_blueprint
@@ -219,14 +231,14 @@ controller_templates:
           type: text
           variable: aws_vpc_subnet_name
           required: true
-          default: priv-net-private-subnet
+          default: dmz-subnet
         - question_name: Security Group
           type: text
           variable: aws_securitygroup_name
           required: true
-          default: private-network-sg
+          default: dmz-sg
 
-  - name: Cloud / AWS / Destroy VM
+  - name: Cloud / AWS / Delete VM
     job_type: run
     organization: Default
     credentials: 
@@ -247,7 +259,7 @@ controller_templates:
       spec:
         - question_name: Name or Pattern
           type: text
-          variable: HOSTS
+          variable: _hosts
           required: true
 
   - name: Cloud / AWS / VPC Report
