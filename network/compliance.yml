@@ -1,0 +1,7 @@
+---
+- name: IOS XE Compliance
+  hosts: "{{ _hosts | default('ios') }}"
+  vars:
+    ignore_all_errors: false
+  roles:
+    - iosxeSTIG
