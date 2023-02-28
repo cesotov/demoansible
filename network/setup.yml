@@ -109,6 +109,4 @@ controller_templates:
     notification_templates_error: Telemetry
     use_fact_cache: true
     ask_job_type_on_launch: yes
-    credentials:
-    - "Workshop Credential"
     survey_enabled: true
