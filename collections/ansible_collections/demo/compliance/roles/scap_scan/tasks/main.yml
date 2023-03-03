@@ -6,7 +6,7 @@
 - name: Install SCAP dependencies
   ansible.builtin.package:
     name:
-      - scap-secuirty-guide
+      - scap-security-guide
       - openscap
       - openscap-scanner
     state: present

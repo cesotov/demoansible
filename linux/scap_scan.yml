@@ -1,6 +1,7 @@
 ---
 - name: OpenSCAP compliance scan
   hosts: "{{ _hosts }}"
+  become: true
   vars:
     report_server: node1
 
