@@ -12,6 +12,6 @@
     state: present
 
 - name: Run SCAP scan
-  ansible.builtin.command: "oscap xccdf eval --profile {{ _scap_profile }} --report /tmp/scap_report.html {{ scap_content }}"
+  ansible.builtin.command: "oscap xccdf eval --profile {{ scap_profile }} --report /tmp/scap_report.html {{ scap_content }}"
   args:
     chdir: /tmp
