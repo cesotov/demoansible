@@ -39,7 +39,7 @@
       ansible.builtin.copy:
         src: "{{ item.path }}"
         dest: "/var/www/html/reports{{ item.path.split('/')[-1] }}"
-      loop: scap_reports.files
+      loop: "{{ scap_reports.files }}"
 
     - name: Update landing page
       include_role:
