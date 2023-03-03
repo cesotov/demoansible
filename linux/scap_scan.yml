@@ -20,7 +20,7 @@
   - name: Fetch SCAP report
     ansible.builtin.fetch:
       src: /tmp/scap_report.html
-      dest: /
+      dest: /tmp
 
   - block:
     - name: Install report server
