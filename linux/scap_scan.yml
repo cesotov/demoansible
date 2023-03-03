@@ -10,16 +10,9 @@
     ansible.builtin.include_role:
       name: demo.compliance.scap_scan
 
-  - name: Create reports directory
-    ansible.builtin.file:
-      path: /tmp/reports
-      state: directory
-    delegate_to: localhost
-    run_once: yes
-
   - name: Fetch SCAP report
     ansible.builtin.fetch:
-      src: /tmp/scap_report.html
+      src: /tmp/{{ inventory_hostname }}_scap_report.html
       dest: /tmp
 
   - block:
