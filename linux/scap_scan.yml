@@ -7,7 +7,7 @@
   tasks:
   - name: Run OpenSCAP scan
     ansible.builtin.include_role:
-      name: compliance.demo.scap_scan
+      name: demo.compliance.scap_scan
 
   - name: Create reports directory
     ansible.builtin.file:
