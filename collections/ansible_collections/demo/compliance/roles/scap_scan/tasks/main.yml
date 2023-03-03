@@ -1,7 +1,7 @@
 ---
-- name: Include platform varaibles
+- name: Include platform variables
   ansible.builtin.include_vars:
-    name: "../vars/rhel{{ ansible_distribution_major_version }}.yml"
+    name: "rhel{{ ansible_distribution_major_version }}.yml"
 
 - name: Install SCAP dependencies
   ansible.builtin.package:
