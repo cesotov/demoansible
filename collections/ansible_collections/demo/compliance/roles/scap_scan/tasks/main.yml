@@ -11,7 +11,9 @@
       - openscap-scanner
     state: present
 
+# https://access.redhat.com/solutions/6974999
 - name: Run SCAP scan
   ansible.builtin.command: "oscap xccdf eval --profile {{ scap_profile }} --report /tmp/scap_report.html {{ scap_content }}"
   args:
     chdir: /tmp
+  ignore_errors: true
