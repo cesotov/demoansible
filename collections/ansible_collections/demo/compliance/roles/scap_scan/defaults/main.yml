@@ -1,2 +1,2 @@
 ---
-_scap_profile: "{{ scap_profile_{{ scap_profile }} }}"
+_scap_profile: "{{ 'scap_profile_'scap_profile }}"
