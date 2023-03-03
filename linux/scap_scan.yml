@@ -31,7 +31,7 @@
       ansible.builtin.find:
         paths: /tmp
         patterns: "*.html" 
-        recurese: true
+        recurse: true
       register: scap_reports
       delegate_to: localhost
       run_once: true
