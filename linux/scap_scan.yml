@@ -22,28 +22,28 @@
       dest: "/tmp/reports/{{ inventory_hostname }}_scap_report.html"
 
   - block:
-  - name: Install report server
-    include_role:
-      name: demo.patching.report_server
+    - name: Install report server
+      include_role:
+        name: demo.patching.report_server
 
-  - name: Find SCAP reports
-    ansible.builtin.find:
-      paths: /tmp
-      patterns: "*.html" 
-    register: scap_reports
-    delegate_to: localhost
+    - name: Find SCAP reports
+      ansible.builtin.find:
+        paths: /tmp
+        patterns: "*.html" 
+      register: scap_reports
+      delegate_to: localhost
+      run_once: true
+
+    - name: Copy SCAP reports
+      ansible.builtin.copy:
+        src: "{{ item.path }}"
+        dest: "/var/www/html/reports{{ item.path.split('/')[-1] }}"
+      loop: scap_reports
+
+    - name: Update landing page
+      include_role:
+        name: demo.patching.report_server
+        tasks_from: linux_landing_page
+
+    delegate_to: "{{ report_server }}"
     run_once: true
-
-  - name: Copy SCAP reports
-    ansible.builtin.copy:
-      src: "{{ item.path }}"
-      dest: "/var/www/html/reports{{ item.path.split('/')[-1] }}"
-    loop: scap_reports
-
-  - name: Update landing page
-    include_role:
-      name: demo.patching.report_server
-      tasks_from: linux_landing_page
-
-  delegate_to: "{{ report_server }}"
-  run_once: true
