@@ -8,6 +8,7 @@ controller_components:
   - inventory_sources
   - groups
   - job_templates
+  - workflow_job_templates
 
 controller_execution_environments:
   - name: Cloud Services Execution Environment
@@ -223,12 +224,12 @@ controller_templates:
           type: text
           variable: aws_vpc_subnet_name
           required: true
-          default: dmz-subnet
+          default: aws-test-vpc
         - question_name: Security Group
           type: text
           variable: aws_securitygroup_name
           required: true
-          default: dmz-sg
+          default: aws-test-sg
 
   - name: Cloud / AWS / Delete VM
     job_type: run
@@ -315,3 +316,110 @@ controller_templates:
           type: text
           variable: aws_keypair_owner
           required: true
+
+controller_workflows:
+  - name: Deploy Cloud Stack in AWS
+    description: A workflow to deploy a cloud stack
+    organization: Default
+    notification_templates_started: Telemetry
+    notification_templates_success: Telemetry
+    notification_templates_error: Telemetry
+    extra_vars:
+      aws_keypair_owner: "{% raw %}{  { aws_owner_tag  }}{% endraw %}"
+      vm_owner: "{% raw %}{  { aws_owner_tag  }}{% endraw %}"
+      vm_deployment: cloud_stack
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Owner
+          type: text
+          variable: aws_owner_tag
+          required: true
+        - question_name: Environment
+          type: multiplechoice
+          variable: vm_environment
+          required: true
+          choices:
+            - Dev
+            - QA
+            - Prod
+        - question_name: Keypair Public Key
+          type: textarea
+          variable: aws_public_key
+          required: true
+        - question_name: Email
+          type: text
+          variable: email
+          required: true
+    simplified_workflow_nodes:
+      - identifier: Create Keypair
+        unified_job_template: Cloud / AWS / Create Keypair
+        success_nodes:
+          - Deploy Windows Blueprint
+          - Deploy RHEL 8 Blueprint
+          - Deploy RHEL 9 Blueprint
+        failure_nodes:
+          - Ticket - Keypair Failed
+      - identifier: Create VPC
+        unified_job_template: Cloud / AWS / Create VPC
+        success_nodes:
+          - Deploy Windows Blueprint
+          - Deploy RHEL 8 Blueprint
+          - Deploy RHEL 9 Blueprint
+        failure_nodes:
+          - Ticket - VPC Failed
+      - identifier: Ticket - Keypair Failed
+        unified_job_template: 'SUBMIT FEEDBACK'
+        extra_data:
+          feedback: Failed to create AWS keypair
+      - identifier: Ticket - VPC Failed
+        unified_job_template: 'SUBMIT FEEDBACK'
+        extra_data:
+          feedback: Failed to create AWS VPC
+      - identifier: Deploy Windows Blueprint
+        unified_job_template: Cloud / AWS / Create VM
+        all_parents_must_converge: true
+        extra_data:
+          vm_name: aws_win
+          vm_blueprint: windows_full
+        success_nodes:
+          - Update Inventory
+        failure_nodes:
+          - Ticket - Instance Failed
+      - identifier: Deploy RHEL8 Blueprint
+        unified_job_template: Cloud / AWS / Create VM
+        all_parents_must_converge: true
+        extra_data:
+          vm_name: aws_rhel8
+          vm_blueprint: rhel8
+        success_nodes:
+          - Update Inventory
+        failure_nodes:
+          - Ticket - Instance Failed
+      - identifier: Deploy RHEL9 Blueprint
+        unified_job_template: Cloud / AWS / Create VM
+        all_parents_must_converge: true
+        extra_data:
+          vm_name: aws_rhel9
+          vm_blueprint: rhel9
+        success_nodes:
+          - Update Inventory
+        failure_nodes:
+          - Ticket - Instance Failed
+      - identifier: Ticket - Instance Failed
+        unified_job_template: 'SUBMIT FEEDBACK'
+        extra_data:
+          feedback: Failed to create AWS instance
+      - identifier: Update Inventory
+        unified_job_template: AWS Inventory
+        success_nodes:
+          - VPC Report
+          - Tag Report
+      - identifier: Tag Report
+        unified_job_template: Cloud / AWS / Tags Report
+        all_parents_must_converge: true
+      - identifier: VPC Report
+        unified_job_template: Cloud / AWS / VPC Report
+        all_parents_must_converge: true
