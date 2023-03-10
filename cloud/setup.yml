@@ -422,4 +422,3 @@ controller_workflows:
           feedback: Failed to create AWS instance
       - identifier: Tag Report
         unified_job_template: Cloud / AWS / Tags Report
-        all_parents_must_converge: true
