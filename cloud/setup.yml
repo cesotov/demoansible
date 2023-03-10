@@ -326,8 +326,8 @@ controller_workflows:
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     extra_vars:
-      aws_keypair_owner: !unsafe {{ aws_owner_tag }}
-      vm_owner: !unsafe {{ aws_owner_tag }}
+      aws_keypair_owner: !unsafe "{{ aws_owner_tag }}"
+      vm_owner: !unsafe "{{ aws_owner_tag }}"
       vm_deployment: cloud_stack
     survey_enabled: true
     survey:
