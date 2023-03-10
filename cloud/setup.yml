@@ -225,7 +225,7 @@ controller_templates:
           type: text
           variable: aws_vpc_subnet_name
           required: true
-          default: aws-test-vpc
+          default: aws-test-subnet
         - question_name: Security Group
           type: text
           variable: aws_securitygroup_name
