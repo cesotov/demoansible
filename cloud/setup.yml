@@ -358,26 +358,28 @@ controller_workflows:
         extra_data:
           aws_keypair_owner: !unsafe "{{ aws_owner_tag }}"
         success_nodes:
-          - Deploy Windows Blueprint
-          - Deploy RHEL8 Blueprint
-          - Deploy RHEL9 Blueprint
+          - VPC Report
         failure_nodes:
           - Ticket - Keypair Failed
       - identifier: Create VPC
         unified_job_template: Cloud / AWS / Create VPC
         success_nodes:
-          - Deploy Windows Blueprint
-          - Deploy RHEL8 Blueprint
-          - Deploy RHEL9 Blueprint
+          - VPC Report
         failure_nodes:
           - Ticket - VPC Failed
       - identifier: Ticket - Keypair Failed
         unified_job_template: 'SUBMIT FEEDBACK'
         extra_data:
           feedback: Failed to create AWS keypair
+      - identifier: VPC Report
+        unified_job_template: Cloud / AWS / VPC Report
+        all_parents_must_converge: true
+        success_nodes:
+          - Deploy Windows Blueprint
+          - Deploy RHEL8 Blueprint
+          - Deploy RHEL9 Blueprint
       - identifier: Deploy Windows Blueprint
         unified_job_template: Cloud / AWS / Create VM
-        all_parents_must_converge: true
         extra_data:
           vm_name: aws_win
           vm_blueprint: windows_full
@@ -388,7 +390,6 @@ controller_workflows:
           - Ticket - Instance Failed
       - identifier: Deploy RHEL8 Blueprint
         unified_job_template: Cloud / AWS / Create VM
-        all_parents_must_converge: true
         extra_data:
           vm_name: aws_rhel8
           vm_blueprint: rhel8
@@ -399,7 +400,6 @@ controller_workflows:
           - Ticket - Instance Failed
       - identifier: Deploy RHEL9 Blueprint
         unified_job_template: Cloud / AWS / Create VM
-        all_parents_must_converge: true
         extra_data:
           vm_name: aws_rhel9
           vm_blueprint: rhel9
@@ -415,7 +415,6 @@ controller_workflows:
       - identifier: Update Inventory
         unified_job_template: AWS Inventory
         success_nodes:
-          - VPC Report
           - Tag Report
       - identifier: Ticket - Instance Failed
         unified_job_template: 'SUBMIT FEEDBACK'
@@ -423,7 +422,4 @@ controller_workflows:
           feedback: Failed to create AWS instance
       - identifier: Tag Report
         unified_job_template: Cloud / AWS / Tags Report
-        all_parents_must_converge: true
-      - identifier: VPC Report
-        unified_job_template: Cloud / AWS / VPC Report
         all_parents_must_converge: true
