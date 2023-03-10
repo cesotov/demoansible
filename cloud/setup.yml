@@ -183,6 +183,7 @@ controller_templates:
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     survey_enabled: true
+    allow_simultaneous: true
     extra_vars:
       aws_region: us-east-1
       aws_keypair_name: aws-test-key
@@ -325,8 +326,8 @@ controller_workflows:
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     extra_vars:
-      aws_keypair_owner: "{% raw %}{  { aws_owner_tag  }}{% endraw %}"
-      vm_owner: "{% raw %}{  { aws_owner_tag  }}{% endraw %}"
+      aws_keypair_owner: !unsafe {{ aws_owner_tag }}
+      vm_owner: !unsafe {{ aws_owner_tag }}
       vm_deployment: cloud_stack
     survey_enabled: true
     survey:
