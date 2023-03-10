@@ -23,7 +23,7 @@
         tenancy: "{{ aws_tenancy }}"
         region: "{{ aws_region }}"
         tags:
-          owner: "{{ aws_vpc_owner }}"
+          owner: "{{ aws_owner_tag }}"
           purpose: "{{ aws_purpose_tag }}"
       register: aws_vpc
 
