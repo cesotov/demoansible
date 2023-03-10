@@ -358,16 +358,16 @@ controller_workflows:
         unified_job_template: Cloud / AWS / Create Keypair
         success_nodes:
           - Deploy Windows Blueprint
-          - Deploy RHEL 8 Blueprint
-          - Deploy RHEL 9 Blueprint
+          - Deploy RHEL8 Blueprint
+          - Deploy RHEL9 Blueprint
         failure_nodes:
           - Ticket - Keypair Failed
       - identifier: Create VPC
         unified_job_template: Cloud / AWS / Create VPC
         success_nodes:
           - Deploy Windows Blueprint
-          - Deploy RHEL 8 Blueprint
-          - Deploy RHEL 9 Blueprint
+          - Deploy RHEL8 Blueprint
+          - Deploy RHEL9 Blueprint
         failure_nodes:
           - Ticket - VPC Failed
       - identifier: Ticket - Keypair Failed
