@@ -375,10 +375,6 @@ controller_workflows:
         unified_job_template: 'SUBMIT FEEDBACK'
         extra_data:
           feedback: Failed to create AWS keypair
-      - identifier: Ticket - VPC Failed
-        unified_job_template: 'SUBMIT FEEDBACK'
-        extra_data:
-          feedback: Failed to create AWS VPC
       - identifier: Deploy Windows Blueprint
         unified_job_template: Cloud / AWS / Create VM
         all_parents_must_converge: true
@@ -412,6 +408,10 @@ controller_workflows:
           - Update Inventory
         failure_nodes:
           - Ticket - Instance Failed
+      - identifier: Ticket - VPC Failed
+        unified_job_template: 'SUBMIT FEEDBACK'
+        extra_data:
+          feedback: Failed to create AWS VPC
       - identifier: Ticket - Instance Failed
         unified_job_template: 'SUBMIT FEEDBACK'
         extra_data:
