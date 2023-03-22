@@ -1,2 +1,0 @@
----
-scap_profile: " {{ scap_profile_stig }}"
