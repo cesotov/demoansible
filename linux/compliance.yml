@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: "{{ HOSTS }}"
   become: true
   vars:
     compliance_profile: undef
