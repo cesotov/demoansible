@@ -8,6 +8,4 @@
   tasks:
     - name: Include win2022STIG role
       ansible.builtin.include_role:
-        name: demo.compliance.win2022STIG
-      when: "ansible_os_family == 'Windows'"
-        
+        name: demo.compliance.win2022STIG       
