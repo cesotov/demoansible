@@ -5,6 +5,7 @@
     win2022STIG_stigrule_254269_Manage: False
     win2022STIG_stigrule_254276_Manage: False
         
+  tasks:
     - name: Include win2022STIG role
       ansible.builtin.include_role:
         name: demo.compliance.win2022STIG
