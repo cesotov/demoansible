@@ -269,7 +269,7 @@ controller_templates:
   - name: "WINDOWS / STIG"
     job_type: run
     inventory: "Workshop Inventory"
-    project: "windows stig"
+    project: "Ansible official demo project"
     playbook: "windows/compliance.yml"
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
