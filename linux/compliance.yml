@@ -11,4 +11,4 @@
 
     - name: Run Compliance Profile
       include_role:
-        name: "dmeo.compliance.rhel{{ ansible_distribution_major_version }}STIG"
+        name: "demo.compliance.rhel{{ ansible_distribution_major_version }}STIG"
