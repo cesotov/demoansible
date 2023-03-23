@@ -2,6 +2,7 @@
 user_message:
 
 controller_components:
+  - execution_environments
   - projects
   - inventories
   - hosts
@@ -9,13 +10,18 @@ controller_components:
   - inventory_source_update
   - job_templates
 
+controller_execution_environments:
+  - name: Networking Execution Environment
+    image: quay.io/nleiva/ee-network-image
+
 controller_projects:
   - name: Network Golden Configs
     organization: Default
     scm_type: git
     scm_url: https://github.com/nleiva/ansible-net-modules
-    update_project: yes
-    wait: yes
+    update_project: true
+    wait: true
+    default_environment: Networking Execution Environment
 
 controller_inventories:
   - name: Network Inventory
@@ -43,11 +49,12 @@ controller_templates:
     survey_enabled: true
     project: Network Golden Configs
     playbook: main.yml
+    execution_environment: Networking Execution Environment
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
     ask_limit_on_launch: true
-    use_fact_cache: yes
+    use_fact_cache: true
     survey:
       name: ''
       description: ''
@@ -78,10 +85,10 @@ controller_templates:
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
     notification_templates_error: Telemetry
+    execution_environment: Networking Execution Environment
     use_fact_cache: true
-    ask_job_type_on_launch: yes
     credentials:
-    - "Workshop Credential"
+      - "Workshop Credential"
     survey_enabled: true
     survey:
       name: ''
@@ -89,7 +96,7 @@ controller_templates:
       spec:
         - question_name: What devices do you want to include in the report?
           type: multiplechoice
-          variable: HOSTS
+          variable: _hosts
           default: routers
           required: true
           choices:
