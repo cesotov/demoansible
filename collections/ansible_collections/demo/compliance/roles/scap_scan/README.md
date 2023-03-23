@@ -1,1 +1,0 @@
-# OpenSCAP Scanner Role
