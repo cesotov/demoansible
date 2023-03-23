@@ -102,7 +102,7 @@ controller_templates:
     job_type: check
     organization: Default
     inventory: Network Inventory
-    project: "Ansible official demo project"
+    project: "network stig"
     playbook: "network/compliance.yml"
     notification_templates_started: Telemetry
     notification_templates_success: Telemetry
