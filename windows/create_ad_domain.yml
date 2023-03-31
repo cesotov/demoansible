@@ -29,11 +29,19 @@
         sleep: 10
       remote_user: Administrator
 
-    # Occasionally a 2nd reboot is required to get the domain to actually be functional
-    - name: Reboot host again
+    - name: Reboot host
       ansible.windows.win_reboot:
         reboot_timeout: 3600
       when: new_forest.reboot_required
+
+    - name: Wait up to 10min for AD web services to start
+      community.windows.win_wait_for_process:
+        process_name_exact: Microsoft.ActiveDirectory.WebServices
+        pre_wait_delay: 60
+        state: present
+        timeout: 600
+        sleep: 10
+      remote_user: Administrator
 
     - name: Create some groups
       community.windows.win_domain_group:
