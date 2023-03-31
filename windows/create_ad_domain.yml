@@ -47,7 +47,8 @@
             - { name: "UserC", groups: "GroupC" }
       rescue:
         - name: Host not ready rebooting again
-            ansible.windows.win_powershell: whoami 
+          ansible.windows.win_powershell:
+            script: whoami
           notify: Reboot host
   handlers:
     - name: Reboot host
