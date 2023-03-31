@@ -33,6 +33,7 @@
     - name: Reboot host again
       ansible.windows.win_reboot:
         reboot_timeout: 3600
+      when: new_forest.reboot_required
 
     - name: Create some groups
       community.windows.win_domain_group:
