@@ -1,12 +1,12 @@
 ---
 - name: Helpdesk new user portal
   hosts: "{{ _hosts | default('os_windows') }}"
-  gather_facts: false
+  gather_facts: true
 
   tasks:
     - name: Check if domain was created first
       ansible.builtin.assert:
-        that: "ansible_facts['ansible_windows_domain_role'] == 'Primary domain controller'"
+        that: "ansible_windows_domain_role == 'Primary domain controller'"
         fail_msg: "Not a domain controller. Run 'WINDOWS / AD /Create Domain' first."
     
     - name: Setting host facts using complex arguments
