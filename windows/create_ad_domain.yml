@@ -29,12 +29,12 @@
         sleep: 10
       remote_user: Administrator
 
-    - name: Reboot host
+    - name: Reboot host again
       ansible.windows.win_reboot:
         reboot_timeout: 3600
       when: new_forest.reboot_required
 
-    - name: Wait up to 10min for AD web services to start
+    - name: Wait up to 10min for AD web services to start again
       community.windows.win_wait_for_process:
         process_name_exact: Microsoft.ActiveDirectory.WebServices
         pre_wait_delay: 60
