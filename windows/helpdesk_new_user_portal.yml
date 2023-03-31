@@ -4,6 +4,11 @@
   gather_facts: false
 
   tasks:
+    - name: Check if domain was created first
+      ansible.builtin.assert:
+        that: "ansible_windows_domain_role == 'Primary domain controller'"
+        fail_msg: "Not a domain controller. Run 'WINDOWS / AD /Create Domain' first."
+    
     - name: Setting host facts using complex arguments
       ansible.builtin.set_fact:
         temp_password: "{{ lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, min_numeric=1) }}"
