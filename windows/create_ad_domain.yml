@@ -30,8 +30,8 @@
       remote_user: Administrator
 
     - name: Reboot host again
-        ansible.windows.win_reboot:
-          reboot_timeout: 3600
+      ansible.windows.win_reboot:
+        reboot_timeout: 3600
 
     - name: Create some groups
       community.windows.win_domain_group:
