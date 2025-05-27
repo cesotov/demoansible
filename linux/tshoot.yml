@@ -1,6 +1,6 @@
 ---
 - name: Gather debug info
-  hosts: "{{ _hosts | default(omit) }}"
+  hosts: all
   become: true
 
   tasks:
