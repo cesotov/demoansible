@@ -1,0 +1,13 @@
+---
+- name: Verificar salida a internet haciendo ping a 8.8.8.8
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Hacer ping a 8.8.8.8 (3 veces)
+      shell: ping -c 3 8.8.8.8
+      register: resultado_ping
+      failed_when: resultado_ping.rc != 0
+
+    - name: Mostrar salida del ping
+      debug:
+        var: resultado_ping.stdout_lines
