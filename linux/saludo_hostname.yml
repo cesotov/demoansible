@@ -1,0 +1,8 @@
+---
+- name: Saludo personalizado desde cada nodo
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Mostrar saludo con el hostname
+      debug:
+        msg: "hola soy el {{ ansible_hostname }}"
