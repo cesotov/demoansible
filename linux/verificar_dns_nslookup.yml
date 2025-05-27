@@ -1,0 +1,13 @@
+---
+- name: Verificar resolución DNS con nslookup
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Hacer nslookup de www.redhat.com
+      shell: nslookup www.redhat.com
+      register: resultado_nslookup
+      failed_when: resultado_nslookup.rc != 0
+
+    - name: Mostrar salida del nslookup
+      debug:
+        var: resultado_nslookup.stdout_lines
