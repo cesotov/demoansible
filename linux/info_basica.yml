@@ -1,0 +1,17 @@
+---
+- name: Recolectar información básica del sistema
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Mostrar nombre del nodo
+      debug: msg: "Hostname: {{ ansible_hostname }}"
+    - name: Mostrar IP
+      debug: msg: "IP: {{ ansible_default_ipv4.address }}"
+    - name: Mostrar memoria
+      debug: msg: "RAM: {{ ansible_memtotal_mb }} MB"
+    - name: Mostrar CPU
+      debug: msg: "CPU: {{ ansible_processor_vcpus }}"
+    - name: Mostrar disco en /
+      debug:
+        msg: >
+          Disco /: {{ ansible_mounts | selectattr('mount', 'equalto', '/') | map(attribute='size_total') | list | first | int // 1024 // 1024 }} MB
