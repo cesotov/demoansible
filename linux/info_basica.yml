@@ -1,6 +1,6 @@
 ---
 - name: Recolectar información básica del sistema
-  hosts: all
+  hosts: node1
   gather_facts: true
   tasks:
     - name: Mostrar nombre del nodo
