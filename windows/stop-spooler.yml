@@ -1,0 +1,20 @@
+---
+- name: Stop Print Spooler Service
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Stop Spooler service
+      win_service:
+        name: Spooler
+        state: stopped
+
+    - name: Verify Spooler status
+      win_shell: |
+        Get-Service Spooler
+      register: spooler_status
+
+    - name: Display Spooler status
+      debug:
+        var: spooler_status.stdout_lines
