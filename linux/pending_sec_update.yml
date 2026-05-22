@@ -1,0 +1,17 @@
+---
+- name: Linux Security Updates Check
+  hosts: all
+  become: true
+  gather_facts: no
+
+  tasks:
+
+    - name: Check pending security updates
+      shell: |
+        dnf updateinfo list security
+      register: security_updates
+      changed_when: false
+
+    - name: Display pending security updates
+      debug:
+        var: security_updates.stdout_lines
