@@ -1,0 +1,11 @@
+---
+- name: Stop Remote Desktop Service
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Stop Remote Desktop Service
+      win_service:
+        name: TermService
+        state: stopped
