@@ -1,0 +1,44 @@
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+
+    - name: Show uptime
+      win_shell: |
+        (get-date) - (gcim Win32_OperatingSystem).LastBootUpTime
+      register: windows_uptime
+
+    - name: Display uptime
+      debug:
+        var: windows_uptime.stdout
+
+    - name: Check disk usage
+      win_shell: |
+        Get-PSDrive C
+      register: windows_disk
+
+    - name: Display disk usage
+      debug:
+        var: windows_disk.stdout_lines
+
+    - name: Check memory usage
+      win_shell: |
+        Get-CimInstance Win32_OperatingSystem | Select-Object TotalVisibleMemorySize,FreePhysicalMemory
+      register: windows_memory
+
+    - name: Display memory usage
+      debug:
+        var: windows_memory.stdout_lines
+
+    - name: Check pending reboot
+      win_shell: |
+        if (Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending")
+        { Write-Output "Reboot required" }
+        else
+        { Write-Output "No reboot required" }
+      register: windows_reboot
+
+    - name: Display reboot status
+      debug:
+        var: windows_reboot.stdout
