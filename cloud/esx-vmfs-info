@@ -1,0 +1,16 @@
+---
+- name: Collect ESXi VMFS Information
+  hosts: esx
+  gather_facts: no
+
+  tasks:
+
+    - name: Get VMFS datastore information
+      shell: |
+        esxcli storage filesystem list
+      register: vmfs_info
+      changed_when: false
+
+    - name: Display VMFS datastore information
+      debug:
+        var: vmfs_info.stdout_lines
