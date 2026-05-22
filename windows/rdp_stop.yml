@@ -1,11 +1,19 @@
 ---
-- name: Stop Remote Desktop Service
+- name: Force Stop Remote Desktop Service
   hosts: all
   gather_facts: no
 
   tasks:
 
-    - name: Stop Remote Desktop Service
-      win_service:
-        name: TermService
-        state: stopped
+    - name: Force stop Remote Desktop Service
+      win_shell: |
+        Stop-Service -Name TermService -Force
+
+    - name: Verify service status
+      win_shell: |
+        Get-Service -Name TermService
+      register: rdp_status
+
+    - name: Display service status
+      debug:
+        var: rdp_status.stdout_lines
