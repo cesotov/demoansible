@@ -1,0 +1,32 @@
+---
+- name: VMware Inventory and Status
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    vcenter_hostname: "vcenter.pureti.cl"
+    vcenter_username: "administrator@vsphere.local"
+    vcenter_password: "N0.read*only"
+    validate_certs: false
+
+  tasks:
+
+    - name: Gather VMware VM information
+      community.vmware.vmware_vm_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ validate_certs }}"
+      register: vm_info
+
+    - name: Display VM inventory
+      debug:
+        msg:
+          - "VM Name: {{ item.guest_name }}"
+          - "Power State: {{ item.power_state }}"
+          - "IP Address: {{ item.ip_address | default('N/A') }}"
+          - "ESXi Host: {{ item.esxi_hostname }}"
+          - "Datastore: {{ item.datastore_url[0].name }}"
+          - "CPU: {{ item.hw_processor_count }}"
+          - "Memory MB: {{ item.hw_memtotal_mb }}"
+      loop: "{{ vm_info.virtual_machines }}"
