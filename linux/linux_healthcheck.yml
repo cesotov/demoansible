@@ -1,0 +1,53 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+
+  tasks:
+
+    - name: Show uptime
+      command: uptime
+      register: linux_uptime
+
+    - name: Display uptime
+      debug:
+        var: linux_uptime.stdout
+
+    - name: Check root filesystem usage
+      command: df -h /
+      register: linux_disk
+
+    - name: Display filesystem usage
+      debug:
+        var: linux_disk.stdout_lines
+
+    - name: Check memory usage
+      command: free -m
+      register: linux_memory
+
+    - name: Display memory usage
+      debug:
+        var: linux_memory.stdout_lines
+
+    - name: Check CPU load
+      command: cat /proc/loadavg
+      register: linux_cpu
+
+    - name: Display CPU load
+      debug:
+        var: linux_cpu.stdout
+
+    - name: Check pending reboot
+      stat:
+        path: /var/run/reboot-required
+      register: linux_reboot
+
+    - name: Display reboot status
+      debug:
+        msg: "Reboot required"
+      when: linux_reboot.stat.exists
+
+    - name: Display reboot status OK
+      debug:
+        msg: "No reboot required"
+      when: not linux_reboot.stat.exists
