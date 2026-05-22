@@ -3,12 +3,6 @@
   hosts: localhost
   gather_facts: no
 
-  vars:
-    vcenter_hostname: "vcenter.pureti.cl"
-    vcenter_username: "administrator@vsphere.local"
-    vcenter_password: "N0.read*only"
-    validate_certs: false
-
   tasks:
 
     - name: Gather VMware VM information
