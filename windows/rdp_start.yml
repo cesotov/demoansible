@@ -1,0 +1,11 @@
+---
+- name: Start Remote Desktop Service
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Start Remote Desktop Service
+      win_service:
+        name: TermService
+        state: started
